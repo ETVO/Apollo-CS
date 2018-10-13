@@ -1,0 +1,20 @@
+DROP TABLE IF EXISTS public.user;
+
+CREATE TABLE public.user (
+    id_user BIGSERIAL PRIMARY KEY,
+    nome VARCHAR(70) NOT NULL,
+    ra VARCHAR(7) UNIQUE,
+    login VARCHAR(20) UNIQUE NOT NULL,
+    senha TEXT NOT NULL,
+    serie INT,
+    curso VARCHAR(20),
+    ano INT NOT NULL DEFAULT EXTRACT(year FROM NOW()),
+    tipo VARCHAR(15) NOT NULL,
+    telefone VARCHAR(15) UNIQUE,
+    adm BOOLEAN NOT NULL DEFAULT FALSE,
+    bloqueado BOOLEAN NOT NULL DEFAULT FALSE
+);
+
+INSERT INTO public.user VALUES (DEFAULT, 'Estevão Pereira Rolim', '1757075', 'ETVO', 'f109d2cbae3d146a00bcaa419aee80ac', 3, 'Informática', DEFAULT, 'Aluno', '14981743304', TRUE, DEFAULT);
+
+SELECT * FROM public.user;
