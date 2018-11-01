@@ -44,8 +44,7 @@ namespace Apollo
                         nome = dr.GetString(1);
 
                         lblNome.Text = nome;
-
-                        radChange();
+                        
                     }
                     else
                     {
@@ -87,6 +86,8 @@ namespace Apollo
             if (util.ConfirmaMsg("Deseja realmente fechar o aplicativo?"))
                 this.Close();
         }
+
+        /*
 
         private void btnUserSalvar_Click(object sender, EventArgs e)
         {
@@ -259,5 +260,6 @@ namespace Apollo
 
             populateUserGrid("SELECT * FROM public.user");
         }
+        */
     }
 }
