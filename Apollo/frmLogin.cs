@@ -117,12 +117,12 @@ namespace Apollo
                         txtSenha.Text = "";
                         txtUser.Focus();
                     }
+                    con.Close();
                 }
                 else
                 {
                     util.Msg("Alguns campos não foram preenchidos!", MessageBoxIcon.Error);
                 }
-                con.Close();
 
             }
             catch (Exception ex)
@@ -157,6 +157,19 @@ namespace Apollo
             {
                 txtUser.SelectAll();
             }
+        }
+
+        private void lblCriarConta_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            frmCadastroUser cad = new frmCadastroUser();
+            this.Hide();
+            cad.ShowDialog();
+            this.Close();
+        }
+
+        private void frmLogin_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

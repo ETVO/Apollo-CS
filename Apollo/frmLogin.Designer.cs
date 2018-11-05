@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmLogin));
             this.btnVoltar = new System.Windows.Forms.Button();
             this.btnFechar = new System.Windows.Forms.Button();
             this.btnLogin = new System.Windows.Forms.Button();
@@ -37,31 +38,33 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.lblCriarConta = new System.Windows.Forms.LinkLabel();
+            this.lbl = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnVoltar
             // 
-            this.btnVoltar.Location = new System.Drawing.Point(12, 248);
+            this.btnVoltar.Location = new System.Drawing.Point(12, 275);
             this.btnVoltar.Name = "btnVoltar";
             this.btnVoltar.Size = new System.Drawing.Size(55, 26);
-            this.btnVoltar.TabIndex = 3;
+            this.btnVoltar.TabIndex = 4;
             this.btnVoltar.Text = "&Voltar";
             this.btnVoltar.UseVisualStyleBackColor = true;
             this.btnVoltar.Click += new System.EventHandler(this.btnVoltar_Click);
             // 
             // btnFechar
             // 
-            this.btnFechar.Location = new System.Drawing.Point(281, 248);
+            this.btnFechar.Location = new System.Drawing.Point(281, 275);
             this.btnFechar.Name = "btnFechar";
             this.btnFechar.Size = new System.Drawing.Size(55, 26);
-            this.btnFechar.TabIndex = 4;
+            this.btnFechar.TabIndex = 5;
             this.btnFechar.Text = "&Fechar";
             this.btnFechar.UseVisualStyleBackColor = true;
             this.btnFechar.Click += new System.EventHandler(this.btnFechar_Click);
             // 
             // btnLogin
             // 
-            this.btnLogin.Location = new System.Drawing.Point(82, 194);
+            this.btnLogin.Location = new System.Drawing.Point(82, 197);
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(185, 38);
             this.btnLogin.TabIndex = 2;
@@ -130,11 +133,33 @@
             this.label1.Text = "Entre em sua conta";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // lblCriarConta
+            // 
+            this.lblCriarConta.AutoSize = true;
+            this.lblCriarConta.Location = new System.Drawing.Point(134, 255);
+            this.lblCriarConta.Name = "lblCriarConta";
+            this.lblCriarConta.Size = new System.Drawing.Size(81, 13);
+            this.lblCriarConta.TabIndex = 3;
+            this.lblCriarConta.TabStop = true;
+            this.lblCriarConta.Text = "Criar uma conta";
+            this.lblCriarConta.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblCriarConta_LinkClicked);
+            // 
+            // lbl
+            // 
+            this.lbl.AutoSize = true;
+            this.lbl.Location = new System.Drawing.Point(165, 240);
+            this.lbl.Name = "lbl";
+            this.lbl.Size = new System.Drawing.Size(19, 13);
+            this.lbl.TabIndex = 15;
+            this.lbl.Text = "ou";
+            // 
             // frmLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(348, 286);
+            this.ClientSize = new System.Drawing.Size(348, 312);
+            this.Controls.Add(this.lbl);
+            this.Controls.Add(this.lblCriarConta);
             this.Controls.Add(this.btnLogin);
             this.Controls.Add(this.txtSenha);
             this.Controls.Add(this.label4);
@@ -145,10 +170,12 @@
             this.Controls.Add(this.btnFechar);
             this.Controls.Add(this.btnVoltar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "frmLogin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = " ";
+            this.Text = " Login";
+            this.Load += new System.EventHandler(this.frmLogin_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -164,5 +191,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.LinkLabel lblCriarConta;
+        private System.Windows.Forms.Label lbl;
     }
 }

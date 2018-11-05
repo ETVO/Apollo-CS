@@ -17,7 +17,7 @@ namespace Apollo
             InitializeComponent();
         }
 
-        Utilities util = new Utilities("Apollo - Início");
+        Utilities util = new Utilities("Apollo");
 
         private void frmInicio_Load(object sender, EventArgs e)
         {
