@@ -68,5 +68,18 @@ namespace Apollo
             return sBuilder.ToString();
         }
 
+        public bool HasNumber(string input)
+        {
+            return input.Where(x => Char.IsDigit(x)).Any();
+        }
+
+        public void selectTextBoxIfEmpty(TextBox txtBox)
+        {
+            if (!String.IsNullOrEmpty(txtBox.Text))
+            {
+                txtBox.SelectAll();
+            }
+        }
+
     }
 }

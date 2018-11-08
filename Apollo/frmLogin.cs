@@ -78,7 +78,7 @@ namespace Apollo
                         string senhaBanco = dr.GetString(4);
                         if (senha == senhaBanco)
                         {
-                            if (dr.GetBoolean(10))
+                            if (dr.GetBoolean(11))
                             {
                                 if (util.ConfirmaMsg("Deseja ir ao Painel de Administração?"))
                                 {
@@ -161,7 +161,7 @@ namespace Apollo
 
         private void lblCriarConta_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            frmCadastroUser cad = new frmCadastroUser();
+            frmCadastroUser cad = new frmCadastroUser(0);
             this.Hide();
             cad.ShowDialog();
             this.Close();
