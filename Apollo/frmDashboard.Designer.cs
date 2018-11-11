@@ -37,6 +37,7 @@
             this.btnVoltar = new System.Windows.Forms.Button();
             this.lblNome = new System.Windows.Forms.Label();
             this.btnFechar = new System.Windows.Forms.Button();
+            this.btnDashboardAdm = new System.Windows.Forms.Button();
             this.tabControl.SuspendLayout();
             this.tabLivros.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -84,11 +85,11 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 30F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(237, 29);
+            this.label2.Location = new System.Drawing.Point(495, 10);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(467, 46);
+            this.label2.Size = new System.Drawing.Size(205, 46);
             this.label2.TabIndex = 22;
-            this.label2.Text = "Panorama da Biblioteca";
+            this.label2.Text = "Biblioteca";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnVoltar
@@ -122,11 +123,23 @@
             this.btnFechar.UseVisualStyleBackColor = true;
             this.btnFechar.Click += new System.EventHandler(this.btnFechar_Click);
             // 
+            // btnDashboardAdm
+            // 
+            this.btnDashboardAdm.Location = new System.Drawing.Point(73, 29);
+            this.btnDashboardAdm.Name = "btnDashboardAdm";
+            this.btnDashboardAdm.Size = new System.Drawing.Size(81, 26);
+            this.btnDashboardAdm.TabIndex = 28;
+            this.btnDashboardAdm.Text = "Administração";
+            this.btnDashboardAdm.UseVisualStyleBackColor = true;
+            this.btnDashboardAdm.Visible = false;
+            this.btnDashboardAdm.Click += new System.EventHandler(this.btnDashboardAdm_Click);
+            // 
             // frmDashboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(716, 512);
+            this.Controls.Add(this.btnDashboardAdm);
             this.Controls.Add(this.tabControl);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btnVoltar);
@@ -157,5 +170,6 @@
         private System.Windows.Forms.Button btnVoltar;
         private System.Windows.Forms.Label lblNome;
         private System.Windows.Forms.Button btnFechar;
+        private System.Windows.Forms.Button btnDashboardAdm;
     }
 }

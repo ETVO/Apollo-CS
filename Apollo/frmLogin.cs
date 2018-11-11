@@ -74,18 +74,27 @@ namespace Apollo
 
                     if (dr.HasRows)
                     {
-                        dr.Read();
-                        string senhaBanco = dr.GetString(4);
+                        dr.Read(); string senhaBanco = dr.GetString(4);
                         if (senha == senhaBanco)
                         {
-                            if (dr.GetBoolean(11))
+                            if (!dr.GetBoolean(12))
                             {
-                                if (util.ConfirmaMsg("Deseja ir ao Painel de Administração?"))
+                                if (dr.GetBoolean(11))
                                 {
-                                    frmDashboardAdm adm = new frmDashboardAdm(dr.GetInt64(0));
-                                    this.Hide();
-                                    adm.ShowDialog();
-                                    this.Close();
+                                    if (util.ConfirmaMsg("Deseja ir ao Painel de Administração?"))
+                                    {
+                                        frmDashboardAdm adm = new frmDashboardAdm(dr.GetInt64(0));
+                                        this.Hide();
+                                        adm.ShowDialog();
+                                        this.Close();
+                                    }
+                                    else
+                                    {
+                                        frmDashboard pan = new frmDashboard(dr.GetInt64(0));
+                                        this.Hide();
+                                        pan.ShowDialog();
+                                        this.Close();
+                                    }
                                 }
                                 else
                                 {
@@ -97,15 +106,13 @@ namespace Apollo
                             }
                             else
                             {
-                                frmDashboard pan = new frmDashboard(dr.GetInt64(0));
-                                this.Hide();
-                                pan.ShowDialog();
-                                this.Close();
+                                util.Msg("Este usuário está bloqueado!\n\nSe isso parece errado, contate um administrador!", MessageBoxIcon.Error);
                             }
+                            
                         }
                         else
                         {
-                            util.Msg("Senha incorreta!", MessageBoxIcon.Error);
+                            util.Msg("Senha incorreta!\n\nSe esqueceu sua senha, contate um administrador para alterá-la!", MessageBoxIcon.Error);
                             txtSenha.Text = "";
                             txtSenha.Focus();
                         }

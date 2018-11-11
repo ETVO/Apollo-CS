@@ -357,3 +357,4 @@ C:\Users\ra1757075\Desktop\Apollo\Apollo\obj\Debug\Apollo.csproj.CopyComplete
 C:\Users\ra1757075\Desktop\Apollo\Apollo\obj\Debug\Apollo.exe
 C:\Users\ra1757075\Desktop\Apollo\Apollo\obj\Debug\Apollo.pdb
 C:\Users\Estevão Rolim\Documents\CTI\Apollo\Apollo\obj\Debug\Apollo.frmCadastroUser.resources
+C:\Users\Estevão Rolim\Documents\CTI\Apollo\Apollo\obj\Debug\Apollo.frmAtualizarUser.resources

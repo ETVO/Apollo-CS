@@ -59,6 +59,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Connection.cs" />
+    <Compile Include="frmAtualizarUser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAtualizarUser.Designer.cs">
+      <DependentUpon>frmAtualizarUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmCadastroUser.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -92,6 +98,9 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities.cs" />
+    <EmbeddedResource Include="frmAtualizarUser.resx">
+      <DependentUpon>frmAtualizarUser.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmCadastroUser.resx">
       <DependentUpon>frmCadastroUser.cs</DependentUpon>
     </EmbeddedResource>

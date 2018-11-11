@@ -31,7 +31,7 @@ namespace Apollo
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmCadastroUser));
             this.lblTitle = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.lblDesc = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.panelAluno = new System.Windows.Forms.Panel();
             this.grpPeriodo = new System.Windows.Forms.GroupBox();
@@ -89,16 +89,16 @@ namespace Apollo
             this.lblTitle.Text = "Crie sua conta";
             this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label2
+            // lblDesc
             // 
-            this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(15, 43);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(335, 30);
-            this.label2.TabIndex = 11;
-            this.label2.Text = "Para ter acesso aos recursos do sistema";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblDesc.BackColor = System.Drawing.Color.Transparent;
+            this.lblDesc.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDesc.Location = new System.Drawing.Point(15, 43);
+            this.lblDesc.Name = "lblDesc";
+            this.lblDesc.Size = new System.Drawing.Size(335, 30);
+            this.lblDesc.TabIndex = 11;
+            this.lblDesc.Text = "Para ter acesso aos recursos do sistema";
+            this.lblDesc.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label5
             // 
@@ -178,7 +178,7 @@ namespace Apollo
             // 
             // btnFecharUser
             // 
-            this.btnFecharUser.Location = new System.Drawing.Point(277, 450);
+            this.btnFecharUser.Location = new System.Drawing.Point(277, 445);
             this.btnFecharUser.Name = "btnFecharUser";
             this.btnFecharUser.Size = new System.Drawing.Size(55, 26);
             this.btnFecharUser.TabIndex = 12;
@@ -188,7 +188,7 @@ namespace Apollo
             // 
             // btnVoltarUser
             // 
-            this.btnVoltarUser.Location = new System.Drawing.Point(8, 450);
+            this.btnVoltarUser.Location = new System.Drawing.Point(8, 445);
             this.btnVoltarUser.Name = "btnVoltarUser";
             this.btnVoltarUser.Size = new System.Drawing.Size(55, 26);
             this.btnVoltarUser.TabIndex = 11;
@@ -477,19 +477,19 @@ namespace Apollo
             // txtTelefoneOutro
             // 
             this.txtTelefoneOutro.Location = new System.Drawing.Point(77, 192);
-            this.txtTelefoneOutro.MaxLength = 100;
+            this.txtTelefoneOutro.MaxLength = 15;
             this.txtTelefoneOutro.Name = "txtTelefoneOutro";
             this.txtTelefoneOutro.Size = new System.Drawing.Size(185, 20);
             this.txtTelefoneOutro.TabIndex = 5;
-            this.txtTelefoneOutro.UseSystemPasswordChar = true;
             // 
             // txtSenhaOutro
             // 
             this.txtSenhaOutro.Location = new System.Drawing.Point(77, 137);
-            this.txtSenhaOutro.MaxLength = 20;
+            this.txtSenhaOutro.MaxLength = 100;
             this.txtSenhaOutro.Name = "txtSenhaOutro";
             this.txtSenhaOutro.Size = new System.Drawing.Size(185, 20);
             this.txtSenhaOutro.TabIndex = 4;
+            this.txtSenhaOutro.UseSystemPasswordChar = true;
             // 
             // label21
             // 
@@ -522,7 +522,7 @@ namespace Apollo
             // 
             // btnFecharOutro
             // 
-            this.btnFecharOutro.Location = new System.Drawing.Point(276, 275);
+            this.btnFecharOutro.Location = new System.Drawing.Point(276, 273);
             this.btnFecharOutro.Name = "btnFecharOutro";
             this.btnFecharOutro.Size = new System.Drawing.Size(55, 26);
             this.btnFecharOutro.TabIndex = 8;
@@ -532,7 +532,7 @@ namespace Apollo
             // 
             // btnVoltarOutro
             // 
-            this.btnVoltarOutro.Location = new System.Drawing.Point(7, 275);
+            this.btnVoltarOutro.Location = new System.Drawing.Point(7, 273);
             this.btnVoltarOutro.Name = "btnVoltarOutro";
             this.btnVoltarOutro.Size = new System.Drawing.Size(55, 26);
             this.btnVoltarOutro.TabIndex = 7;
@@ -565,12 +565,12 @@ namespace Apollo
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(362, 628);
+            this.Controls.Add(this.panelAluno);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.cmbTipo);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.lblDesc);
             this.Controls.Add(this.lblTitle);
-            this.Controls.Add(this.panelAluno);
             this.Controls.Add(this.panelOutro);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -593,7 +593,7 @@ namespace Apollo
         #endregion
 
         private System.Windows.Forms.Label lblTitle;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblDesc;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Panel panelAluno;
         private System.Windows.Forms.ComboBox cmbTipo;

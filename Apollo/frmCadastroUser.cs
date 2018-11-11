@@ -13,10 +13,24 @@ namespace Apollo
 {
     public partial class frmCadastroUser : Form
     {
+        /// <summary>
+        /// Atributo interno para saber de qual formulário o usuário vem
+        /// </summary>
         int formOption;
-        int userId;
-        string title;
-        public frmCadastroUser(int form, int id)
+
+        /// <summary>
+        /// Atributo interno para saber qual o usuário, caso venha de algum painel (admin ou user)
+        /// </summary>
+        Int64 userId;
+
+        string title, desc, conclusionMsg;
+
+        /// <summary>
+        /// Construtor da classe
+        /// </summary>
+        /// <param name="form"><para>De qual formulário o frmCadastroUser está sendo aberto</para><para>(0 - frmLogin; 1 - frmDashboardAdm; 2 - frmDashboard; 3 - frmInicio)</para></param>
+        /// <param name="id">Id do usuário logado</param>
+        public frmCadastroUser(int form, Int64 id)
         {
             InitializeComponent();
             formOption = form;
@@ -24,6 +38,10 @@ namespace Apollo
 
         }
 
+        /// <summary>
+        /// Construtor da classe
+        /// </summary>
+        /// <param name="form"><para>De qual formulário o frmCadastroUser está sendo aberto</para><para>(0 - frmLogin; 1 - frmDashboardAdm; 2 - frmDashboard; 3 - frmInicio)</para></param>
         public frmCadastroUser(int form)
         {
             InitializeComponent();
@@ -36,15 +54,29 @@ namespace Apollo
         private void frmCadastroUser_Load(object sender, EventArgs e)
         {
             if (formOption == 2)
+            {
+                conclusionMsg = "Sua conta foi alterada com sucesso!";
                 title = "Altere sua Conta";
+                desc = "Para aprimorar sua experiência com o sistema";
+            }
+            else if(formOption == 1)
+            {
+                title = "Cadastre um Usuário";
+                desc = "Para oferecer acesso aos recursos do sistema";
+            }
             else
+            {
+                conclusionMsg = "Conta criada com sucesso!";
                 title = "Crie sua Conta";
+                desc = "Para ter acesso aos recursos do sistema";
+            }
             cmbTipo.SelectedIndex = 0;
             panelReload();
             resetaCor('*');
             util = new Utilities("Apollo - " + title);
             this.Text = title;
             lblTitle.Text = title;
+            lblDesc.Text = desc;
         }
 
         void panelReload()
@@ -196,6 +228,33 @@ namespace Apollo
 
         bool valCamposAluno()
         {
+            con = new Connection("localhost", "5432", "postgres", "postgres", "admin");
+
+            string sql = "SELECT * FROM public.user WHERE ra = '" + txtRA.Text + "';";
+            NpgsqlDataReader dr = con.Select(sql);
+
+            if (dr.HasRows && !String.IsNullOrWhiteSpace(txtRA.Text))
+            {
+                util.Msg("O RA \"" + txtRA.Text + "\" já está cadastrado!\n\nSe isso parece errado, contate um administrador!", MessageBoxIcon.Error);
+                destaca(txtRA);
+                con.Close();
+                return false;
+            }
+
+            con.Close();
+
+            con = new Connection("localhost", "5432", "postgres", "postgres", "admin");
+
+            sql = "SELECT * FROM public.user WHERE login = '" + txtUser.Text + "';";
+            dr = con.Select(sql);
+
+            if (dr.HasRows && !String.IsNullOrWhiteSpace(txtUser.Text))
+            {
+                util.Msg("O Usuário \"" + txtUser.Text + "\" já está cadastrado!", MessageBoxIcon.Error);
+                destaca(txtUser);
+                return false;
+            }
+
             bool valid = true;
             List<TextBox> fields = new List<TextBox>();
 
@@ -219,6 +278,7 @@ namespace Apollo
             }
             if (!valid)
                 return false;
+
             if(String.IsNullOrWhiteSpace(txtTelefone.Text) || !util.HasNumber(txtTelefone.Text))
             {
                 if(util.ConfirmaMsg("Você não preencheu um telefone, deseja cadastrar assim mesmo?"))
@@ -232,20 +292,84 @@ namespace Apollo
                 }
             }
             else
+               return true;
+        }
+        bool valCamposOutro()
+        {
+            con = new Connection("localhost", "5432", "postgres", "postgres", "admin");
+
+            string sql = "SELECT * FROM public.user WHERE login = '" + txtUserOutro.Text + "';";
+            NpgsqlDataReader dr = con.Select(sql);
+
+            if (dr.HasRows && !String.IsNullOrWhiteSpace(txtUserOutro.Text))
             {
-                return true;
+                util.Msg("O Usuário \"" + txtUserOutro.Text + "\" já está cadastrado!", MessageBoxIcon.Error);
+                destaca(txtUserOutro);
+                return false;
             }
+
+            bool valid = true;
+            List<TextBox> fields = new List<TextBox>();
+
+            fields.Add(txtNomeOutro);
+            fields.Add(txtUserOutro);
+            fields.Add(txtSenhaOutro);
+            for (int i = 0; i < fields.Count; i++)
+            {
+                if (String.IsNullOrWhiteSpace(fields[i].Text) || util.HasNumber(fields[i].Text))
+                {
+                    if (!((fields[i] == txtRA || fields[i] == txtAno) && !String.IsNullOrWhiteSpace(fields[i].Text)))
+                    {
+                        if (valid) util.Msg("Alguns campos não foram preenchidos ou contém valores inválidos!", MessageBoxIcon.Error);
+                        destaca(fields[i]);
+                        valid = false;
+                    }
+                }
+            }
+            if (!valid)
+                return false;
+            if (String.IsNullOrWhiteSpace(txtTelefoneOutro.Text) || !util.HasNumber(txtTelefoneOutro.Text))
+            {
+                if (util.ConfirmaMsg("Você não preencheu um telefone, deseja cadastrar assim mesmo?"))
+                {
+                    return true;
+                }
+                else
+                {
+                    destaca(txtTelefoneOutro);
+                    return false;
+                }
+            }
+            else
+                return true;
         }
 
         private void btnCriaAluno_Click(object sender, EventArgs e)
         {
+            cria('a');
+        }
+        private void btnCriaOutro_Click(object sender, EventArgs e)
+        {
+            cria('o');
+        }
+
+        bool valCampos(char type)
+        {
+            if (type == 'a')
+                return valCamposAluno();
+            return valCamposOutro();
+        }
+
+
+        void cria(char type)
+        {
             try
             {
-                if (valCamposAluno())
+                if (valCampos(type))
                 {
-                    resetaCor('a');
+                    resetaCor(type);
 
-                    if(formOption == 2)
+                    if (formOption == 2)
                     {//alterar
 
                     }
@@ -277,30 +401,71 @@ namespace Apollo
 
                         if (formOption == 1)
                         {
-                            if(util.ConfirmaMsg("Deseja cadastrá-lo como administrador?"))
+                            if (util.ConfirmaMsg("Deseja cadastrá-lo como administrador?"))
                             {
-                                sql = "INSERT INTO public.user (id_user, tipo, nome, ra, login, senha, serie, curso, periodo, telefone, ano, adm) " +
+                                if(type  == 'a')
+                                {
+                                    sql = "INSERT INTO public.user (id_user, tipo, nome, ra, login, senha, serie, curso, periodo, telefone, ano, adm) " +
                             "VALUES (" + id.ToString() + ", '" + cmbTipo.Text + "', '" + txtNome.Text + "', '" + txtRA.Text + "', '" + txtUser.Text + "', '" + util.Md5(txtSenha.Text) + "', '" + txtAno.Text + "', '" + txtCurso.Text + "', '" + periodo + "', '" + txtTelefone.Text + "', " + DateTime.Now.Year + ", TRUE);";
+
+                                }
+                                else
+                                {
+                                    sql = "INSERT INTO public.user (id_user, tipo, nome, login, senha, telefone, ano, adm) " +
+                            "VALUES (" + id.ToString() + ", '" + cmbTipo.Text + "', '" + txtNomeOutro.Text + "', '" + txtUserOutro.Text + "', '" + util.Md5(txtSenhaOutro.Text) + "', '" + txtTelefoneOutro.Text + "', " + DateTime.Now.Year + ", TRUE);";
+
+                                }
 
                                 con.Run(sql);
 
-                                util.Msg("Administrador "+txtNome.Text.Split(' ')[0]+" cadastrado com sucesso!", MessageBoxIcon.Information);
+                                util.Msg("Administrador " + txtNomeOutro.Text.Split(' ')[0] + " cadastrado com sucesso!", MessageBoxIcon.Information);
+                            }
+                            else
+                            {
+                                if (type == 'a')
+                                {
+                                    sql = "INSERT INTO public.user (id_user, tipo, nome, ra, login, senha, serie, curso, periodo, telefone, ano, adm) " +
+                            "VALUES (" + id.ToString() + ", '" + cmbTipo.Text + "', '" + txtNome.Text + "', '" + txtRA.Text + "', '" + txtUser.Text + "', '" + util.Md5(txtSenha.Text) + "', '" + txtAno.Text + "', '" + txtCurso.Text + "', '" + periodo + "', '" + txtTelefone.Text + "', " + DateTime.Now.Year + ", FALSE);";
+
+                                }
+                                else
+                                {
+                                    sql = "INSERT INTO public.user (id_user, tipo, nome, login, senha, telefone, ano, adm) " +
+                            "VALUES (" + id.ToString() + ", '" + cmbTipo.Text + "', '" + txtNomeOutro.Text + "', '" + txtUserOutro.Text + "', '" + util.Md5(txtSenhaOutro.Text) + "', '" + txtTelefoneOutro.Text + "', " + DateTime.Now.Year + ", FALSE);";
+
+                                }
+
+                                con.Run(sql);
+
+                                util.Msg("Usuário " + txtNomeOutro.Text.Split(' ')[0] + " cadastrado com sucesso!", MessageBoxIcon.Information);
                             }
                         }
                         else
                         {
-                            sql = "INSERT INTO public.user (id_user, tipo, nome, ra, login, senha, serie, curso, periodo, telefone, ano) " +
-                            "VALUES (" + id.ToString() + ", '" + cmbTipo.Text + "', '" + txtNome.Text + "', '" + txtRA.Text + "', '" + txtUser.Text + "', '" + util.Md5(txtSenha.Text) + "', '" + txtAno.Text + "', '" + txtCurso.Text + "', '" + periodo + "', '" + txtTelefone.Text + "', " + DateTime.Now.Year + ");";
+                            if (type == 'a')
+                            {
+                                sql = "INSERT INTO public.user (id_user, tipo, nome, ra, login, senha, serie, curso, periodo, telefone, ano, adm) " +
+                        "VALUES (" + id.ToString() + ", '" + cmbTipo.Text + "', '" + txtNome.Text + "', '" + txtRA.Text + "', '" + txtUser.Text + "', '" + util.Md5(txtSenha.Text) + "', '" + txtAno.Text + "', '" + txtCurso.Text + "', '" + periodo + "', '" + txtTelefone.Text + "', " + DateTime.Now.Year + ", FALSE);";
+
+                            }
+                            else
+                            {
+                                sql = "INSERT INTO public.user (id_user, tipo, nome, login, senha, telefone, ano, adm) " +
+                        "VALUES (" + id.ToString() + ", '" + cmbTipo.Text + "', '" + txtNomeOutro.Text + "', '" + txtUserOutro.Text + "', '" + util.Md5(txtSenhaOutro.Text) + "', '" + txtTelefoneOutro.Text + "', " + DateTime.Now.Year + ", FALSE);";
+
+                            }
 
                             con.Run(sql);
 
-                            util.Msg("Usuário " + txtNome.Text.Split(' ')[0] + " cadastrado com sucesso!", MessageBoxIcon.Information);
+                            util.Msg(conclusionMsg, MessageBoxIcon.Information);
                         }
-                        limpaCampo('a');
+
+                        limpaCampo(type);
+                        voltar();
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 util.Msg("Algo deu errado!\n\nMais detalhes: " + ex.Message, MessageBoxIcon.Error);
             }
@@ -322,27 +487,30 @@ namespace Apollo
                     this.Close();
                     break;
 
-                case 1://admin
+                case 1://admin dashboard
                     frmDashboardAdm adm = new frmDashboardAdm(userId);
                     this.Hide();
                     adm.ShowDialog();
                     this.Close();
                     break;
 
-                case 2:
+                case 2://user dashboard
                     frmDashboard dash = new frmDashboard(userId);
                     this.Hide();
                     dash.ShowDialog();
                     this.Close();
                     break;
 
-
-                default:
-                    util.Msg("Algo deu muito errado ao encontrar a página de onde você vinha! Contate o desenvolvedor!", MessageBoxIcon.Error);
+                case 3://inicio
                     frmInicio inicio = new frmInicio();
                     this.Hide();
                     inicio.ShowDialog();
                     this.Close();
+                    break;
+
+                default:
+                    formOption = 3;
+                    voltar();
                     break;
             }
         }
@@ -446,114 +614,6 @@ namespace Apollo
         {
             txtAno.Text = numAno.Value.ToString();
         }
-
-        bool valCamposOutro()
-        {
-            bool valid = true;
-            List<TextBox> fields = new List<TextBox>();
-
-            fields.Add(txtNomeOutro);
-            fields.Add(txtUserOutro);
-            fields.Add(txtSenhaOutro);
-            for (int i = 0; i < fields.Count; i++)
-            {
-                if (String.IsNullOrWhiteSpace(fields[i].Text) || util.HasNumber(fields[i].Text))
-                {
-                    if (!((fields[i] == txtRA || fields[i] == txtAno) && !String.IsNullOrWhiteSpace(fields[i].Text)))
-                    {
-                        if (valid) util.Msg("Alguns campos não foram preenchidos ou contém valores inválidos!", MessageBoxIcon.Error);
-                        destaca(fields[i]);
-                        valid = false;
-                    }
-                }
-            }
-            if (!valid)
-                return false;
-            if (String.IsNullOrWhiteSpace(txtTelefoneOutro.Text) || !util.HasNumber(txtTelefoneOutro.Text))
-            {
-                if (util.ConfirmaMsg("Você não preencheu um telefone, deseja cadastrar assim mesmo?"))
-                {
-                    return true;
-                }
-                else
-                {
-                    destaca(txtTelefoneOutro);
-                    return false;
-                }
-            }
-            else
-            {
-                return true;
-            }
-        }
-
-        private void btnCriaOutro_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (valCamposOutro())
-                {
-                    resetaCor('o');
-
-                    if (formOption == 2)
-                    {//alterar
-
-                    }
-                    else
-                    {//cadastrar
-                        con = new Connection("localhost", "5432", "postgres", "postgres", "admin");
-
-                        string sql = "SELECT nextval('user_id_user_seq'::regclass)";
-                        long id;
-
-                        NpgsqlDataReader dr = con.Select(sql);
-                        if (dr.HasRows)
-                        {
-                            dr.Read();
-                            id = dr.GetInt64(0);
-                        }
-                        else
-                            throw new Exception("Problema ao realizar progressão da user_id_user_seq");
-
-                        con.Close();
-
-                        con = new Connection("localhost", "5432", "postgres", "postgres", "admin");
-
-                        string periodo;
-                        if (radDiurno.Checked)
-                            periodo = "Diurno";
-                        else
-                            periodo = "Noturno";
-
-                        if (formOption == 1)
-                        {
-                            if (util.ConfirmaMsg("Deseja cadastrá-lo como administrador?"))
-                            {
-                                sql = "INSERT INTO public.user (id_user, tipo, nome, login, senha, telefone, ano, adm) " +
-                            "VALUES (" + id.ToString() + ", '" + cmbTipo.Text + "', '" + txtNomeOutro.Text + "', '" + txtUserOutro.Text + "', '" + util.Md5(txtSenhaOutro.Text) + "', '" + txtTelefoneOutro.Text + "', " + DateTime.Now.Year + ", TRUE);";
-
-                                con.Run(sql);
-
-                                util.Msg("Administrador " + txtNomeOutro.Text.Split(' ')[0] + " cadastrado com sucesso!", MessageBoxIcon.Information);
-                            }
-                        }
-                        else
-                        {
-                            sql = "INSERT INTO public.user (id_user, tipo, nome, login, senha, telefone, ano, adm) " +
-                            "VALUES (" + id.ToString() + ", '" + cmbTipo.Text + "', '" + txtNomeOutro.Text + "', '" + txtUserOutro.Text + "', '" + util.Md5(txtSenhaOutro.Text) + "', '" + txtTelefoneOutro.Text + "', " + DateTime.Now.Year + ", FALSE);";
-                            con.Run(sql);
-
-                            util.Msg("Usuário " + txtNomeOutro.Text.Split(' ')[0] + " cadastrado com sucesso!", MessageBoxIcon.Information);
-                        }
-
-                        limpaCampo('o');
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                util.Msg("Algo deu errado!\n\nMais detalhes: " + ex.Message, MessageBoxIcon.Error);
-            }
-        }
+        
     }
 }

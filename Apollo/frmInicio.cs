@@ -32,20 +32,18 @@ namespace Apollo
             this.Close();
         }
 
-        private void btnPesquisa_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnAtrasos_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnFechar_Click(object sender, EventArgs e)
         {
             if (util.ConfirmaMsg("Deseja realmente fechar o aplicativo?"))
                 this.Close();
+        }
+
+        private void btnCriarConta_Click(object sender, EventArgs e)
+        {
+            frmCadastroUser caduser = new frmCadastroUser(3);
+            this.Hide();
+            caduser.ShowDialog();
+            this.Close();
         }
     }
 }

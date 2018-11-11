@@ -13,12 +13,18 @@ namespace Apollo
 {
     public partial class frmDashboard : Form
     {
-        Int64 id_user;
+        Int64 idUser;
 
+        bool adm = false;
+
+        /// <summary>
+        /// Construtor da Classe
+        /// </summary>
+        /// <param name="id">Id do usuário</param>
         public frmDashboard(Int64 id)
         {
             InitializeComponent();
-            id_user = id;
+            idUser = id;
         }
 
         Utilities util = new Utilities("Apollo - Panorama da Biblioteca");
@@ -34,7 +40,7 @@ namespace Apollo
                     string nome;
                     con = new Connection("localhost", "5432", "postgres", "postgres", "admin");
 
-                    string sql = "SELECT * FROM public.user WHERE id_user=" + id_user;
+                    string sql = "SELECT * FROM public.user WHERE id_user=" + idUser;
 
                     NpgsqlDataReader dr = con.Select(sql);
 
@@ -44,6 +50,11 @@ namespace Apollo
                         nome = dr.GetString(1);
 
                         lblNome.Text = nome;
+
+                        adm = dr.GetBoolean(11);
+
+                        if (adm)
+                            btnDashboardAdm.Visible = true;
                     }
                     else
                     {
@@ -82,6 +93,17 @@ namespace Apollo
         {
             if (util.ConfirmaMsg("Deseja realmente fechar o aplicativo?"))
                 this.Close();
+        }
+
+        private void btnDashboardAdm_Click(object sender, EventArgs e)
+        {
+            if (adm)
+            {
+                frmDashboardAdm adm = new frmDashboardAdm(idUser);
+                this.Hide();
+                adm.ShowDialog();
+                this.Close();
+            }
         }
     }
 }
