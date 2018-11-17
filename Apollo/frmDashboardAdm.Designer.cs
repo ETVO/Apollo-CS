@@ -41,8 +41,8 @@
             this.btnConsultaUser = new System.Windows.Forms.Button();
             this.btnCadastroUser = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.btnConsultaLivro = new System.Windows.Forms.Button();
+            this.btnCadastroLivro = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.button6 = new System.Windows.Forms.Button();
@@ -176,42 +176,44 @@
             this.btnCadastroUser.TabIndex = 1;
             this.btnCadastroUser.Text = "Cadastrar Usuário";
             this.btnCadastroUser.UseVisualStyleBackColor = false;
+            this.btnCadastroUser.Click += new System.EventHandler(this.btnCadastroUser_Click);
             // 
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel2.Controls.Add(this.button1);
-            this.panel2.Controls.Add(this.button3);
+            this.panel2.Controls.Add(this.btnConsultaLivro);
+            this.panel2.Controls.Add(this.btnCadastroLivro);
             this.panel2.Controls.Add(this.label4);
             this.panel2.Location = new System.Drawing.Point(251, 115);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(210, 333);
             this.panel2.TabIndex = 4;
             // 
-            // button1
+            // btnConsultaLivro
             // 
-            this.button1.BackColor = System.Drawing.Color.Transparent;
-            this.button1.FlatAppearance.BorderColor = System.Drawing.SystemColors.ControlText;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(13, 92);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(173, 42);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "Consultar &Livros";
-            this.button1.UseVisualStyleBackColor = false;
+            this.btnConsultaLivro.BackColor = System.Drawing.Color.Transparent;
+            this.btnConsultaLivro.FlatAppearance.BorderColor = System.Drawing.SystemColors.ControlText;
+            this.btnConsultaLivro.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnConsultaLivro.Location = new System.Drawing.Point(13, 92);
+            this.btnConsultaLivro.Name = "btnConsultaLivro";
+            this.btnConsultaLivro.Size = new System.Drawing.Size(173, 42);
+            this.btnConsultaLivro.TabIndex = 5;
+            this.btnConsultaLivro.Text = "Consultar &Livros";
+            this.btnConsultaLivro.UseVisualStyleBackColor = false;
             // 
-            // button3
+            // btnCadastroLivro
             // 
-            this.button3.BackColor = System.Drawing.Color.Transparent;
-            this.button3.FlatAppearance.BorderColor = System.Drawing.SystemColors.ControlText;
-            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.Location = new System.Drawing.Point(13, 44);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(173, 42);
-            this.button3.TabIndex = 4;
-            this.button3.Text = "Cadastrar Livro";
-            this.button3.UseVisualStyleBackColor = false;
+            this.btnCadastroLivro.BackColor = System.Drawing.Color.Transparent;
+            this.btnCadastroLivro.FlatAppearance.BorderColor = System.Drawing.SystemColors.ControlText;
+            this.btnCadastroLivro.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCadastroLivro.Location = new System.Drawing.Point(13, 44);
+            this.btnCadastroLivro.Name = "btnCadastroLivro";
+            this.btnCadastroLivro.Size = new System.Drawing.Size(173, 42);
+            this.btnCadastroLivro.TabIndex = 4;
+            this.btnCadastroLivro.Text = "Cadastrar Livro";
+            this.btnCadastroLivro.UseVisualStyleBackColor = false;
+            this.btnCadastroLivro.Click += new System.EventHandler(this.btnCadastroLivro_Click);
             // 
             // label4
             // 
@@ -326,8 +328,8 @@
         private System.Windows.Forms.Button btnConsultaUser;
         private System.Windows.Forms.Button btnCadastroUser;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button btnConsultaLivro;
+        private System.Windows.Forms.Button btnCadastroLivro;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Button button6;

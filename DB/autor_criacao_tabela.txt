@@ -1,0 +1,12 @@
+DROP TABLE IF EXISTS public.autor;
+
+CREATE TABLE public.autor (
+    id_autor BIGSERIAL PRIMARY KEY NOT NULL,
+    nome TEXT NOT NULL,
+    data_nasc DATE,
+    excluido BOOLEAN NOT NULL DEFAULT TRUE
+);
+
+INSERT INTO public.autor VALUES (DEFAULT, 'Carl Sagan', '10-10-2010', DEFAULT);
+
+SELECT * FROM public.autor;

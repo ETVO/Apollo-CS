@@ -1,0 +1,15 @@
+DROP TABLE IF EXISTS public.emprestimo;
+
+CREATE TABLE public.emprestimo (
+    id_emprestimo BIGSERIAL PRIMARY KEY NOT NULL,
+    id_livro BIGINT references public.livro(id_livro),
+    id_user BIGINT references public.user(id_user),
+    data_emp DATE NOT NULL,
+    data_prev_dev DATE NOT NULL,
+    data_dev DATE,
+    devolvido BOOLEAN NOT NULL DEFAULT FALSE
+);
+
+INSERT INTO public.emprestimo VALUES (DEFAULT, 1, 1, '10-10-2010', '10-10-2011', DEFAULT);
+
+SELECT * FROM public.emprestimo;

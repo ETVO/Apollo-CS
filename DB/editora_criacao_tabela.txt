@@ -1,0 +1,11 @@
+DROP TABLE IF EXISTS public.editora;
+
+CREATE TABLE public.editora (
+    id_editora BIGSERIAL PRIMARY KEY NOT NULL,
+    nome TEXT NOT NULL,
+    excluido BOOLEAN NOT NULL DEFAULT TRUE
+);
+
+INSERT INTO public.editora VALUES (DEFAULT, 'Letras', DEFAULT);
+
+SELECT * FROM public.editora;

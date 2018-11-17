@@ -65,6 +65,12 @@
     <Compile Include="frmAtualizarUser.Designer.cs">
       <DependentUpon>frmAtualizarUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmCadastroLivro.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCadastroLivro.Designer.cs">
+      <DependentUpon>frmCadastroLivro.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmCadastroUser.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -100,6 +106,9 @@
     <Compile Include="Utilities.cs" />
     <EmbeddedResource Include="frmAtualizarUser.resx">
       <DependentUpon>frmAtualizarUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmCadastroLivro.resx">
+      <DependentUpon>frmCadastroLivro.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmCadastroUser.resx">
       <DependentUpon>frmCadastroUser.cs</DependentUpon>

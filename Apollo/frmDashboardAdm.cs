@@ -109,18 +109,25 @@ namespace Apollo
 
         private void btnCadastroUser_Click(object sender, EventArgs e)
         {
-            frmCadastroUser caduser = new frmCadastroUser(1, idUser);
+            frmCadastroUser cadUser = new frmCadastroUser(1, idUser);
             this.Hide();
-            caduser.ShowDialog();
+            cadUser.ShowDialog();
             this.Close();
         }
 
         private void btnAtualizarUser_Click(object sender, EventArgs e)
         {
-
             frmAtualizarUser atualizarUser = new frmAtualizarUser(idUser);
             this.Hide();
             atualizarUser.ShowDialog();
+            this.Close();
+        }
+
+        private void btnCadastroLivro_Click(object sender, EventArgs e)
+        {
+            frmCadastroLivro cadLivro = new frmCadastroLivro(idUser);
+            this.Hide();
+            cadLivro.ShowDialog();
             this.Close();
         }
     }
