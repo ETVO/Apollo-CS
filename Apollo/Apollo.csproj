@@ -65,6 +65,24 @@
     <Compile Include="frmAtualizarUser.Designer.cs">
       <DependentUpon>frmAtualizarUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmCadastroAutor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCadastroAutor.Designer.cs">
+      <DependentUpon>frmCadastroAutor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmCadastroEditora.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCadastroEditora.Designer.cs">
+      <DependentUpon>frmCadastroEditora.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmCadastroGenero.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmCadastroGenero.Designer.cs">
+      <DependentUpon>frmCadastroGenero.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmCadastroLivro.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -89,6 +107,30 @@
     <Compile Include="frmDashboardAdm.Designer.cs">
       <DependentUpon>frmDashboardAdm.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmEmprestimo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmEmprestimo.Designer.cs">
+      <DependentUpon>frmEmprestimo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmFiltrosUser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmFiltrosUser.Designer.cs">
+      <DependentUpon>frmFiltrosUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmSelecionaLivro.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSelecionaLivro.Designer.cs">
+      <DependentUpon>frmSelecionaLivro.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmSelecionaUser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSelecionaUser.Designer.cs">
+      <DependentUpon>frmSelecionaUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmInicio.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -107,6 +149,15 @@
     <EmbeddedResource Include="frmAtualizarUser.resx">
       <DependentUpon>frmAtualizarUser.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmCadastroAutor.resx">
+      <DependentUpon>frmCadastroAutor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmCadastroEditora.resx">
+      <DependentUpon>frmCadastroEditora.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmCadastroGenero.resx">
+      <DependentUpon>frmCadastroGenero.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmCadastroLivro.resx">
       <DependentUpon>frmCadastroLivro.cs</DependentUpon>
     </EmbeddedResource>
@@ -118,6 +169,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmDashboardAdm.resx">
       <DependentUpon>frmDashboardAdm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmEmprestimo.resx">
+      <DependentUpon>frmEmprestimo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSelecionaLivro.resx">
+      <DependentUpon>frmSelecionaLivro.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSelecionaUser.resx">
+      <DependentUpon>frmSelecionaUser.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmInicio.resx">
       <DependentUpon>frmInicio.cs</DependentUpon>

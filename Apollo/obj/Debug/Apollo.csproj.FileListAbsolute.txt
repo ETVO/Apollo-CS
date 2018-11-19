@@ -358,3 +358,9 @@ C:\Users\ra1757075\Desktop\Apollo\Apollo\obj\Debug\Apollo.exe
 C:\Users\ra1757075\Desktop\Apollo\Apollo\obj\Debug\Apollo.pdb
 C:\Users\Estevão Rolim\Documents\CTI\Apollo\Apollo\obj\Debug\Apollo.frmCadastroUser.resources
 C:\Users\Estevão Rolim\Documents\CTI\Apollo\Apollo\obj\Debug\Apollo.frmAtualizarUser.resources
+C:\Users\Estevão Rolim\Documents\CTI\Apollo\Apollo\obj\Debug\Apollo.frmCadastroLivro.resources
+C:\Users\Estevão Rolim\Documents\CTI\Apollo\Apollo\obj\Debug\Apollo.frmCadastroGenero.resources
+C:\Users\Estevão Rolim\Documents\CTI\Apollo\Apollo\obj\Debug\Apollo.frmCadastroAutor.resources
+C:\Users\Estevão Rolim\Documents\CTI\Apollo\Apollo\obj\Debug\Apollo.frmCadastroEditora.resources
+C:\Users\Estevão Rolim\Documents\CTI\Apollo\Apollo\obj\Debug\Apollo.frmSelecionaLivro.resources
+C:\Users\Estevão Rolim\Documents\CTI\Apollo\Apollo\obj\Debug\Apollo.frmSelecionaUser.resources

@@ -47,7 +47,7 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.button6 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
+            this.btnNovoEmprestimo = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -231,7 +231,7 @@
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel3.Controls.Add(this.button6);
             this.panel3.Controls.Add(this.button4);
-            this.panel3.Controls.Add(this.button5);
+            this.panel3.Controls.Add(this.btnNovoEmprestimo);
             this.panel3.Controls.Add(this.label5);
             this.panel3.Location = new System.Drawing.Point(35, 115);
             this.panel3.Name = "panel3";
@@ -262,17 +262,18 @@
             this.button4.Text = "Consultar Empréstimos";
             this.button4.UseVisualStyleBackColor = false;
             // 
-            // button5
+            // btnNovoEmprestimo
             // 
-            this.button5.BackColor = System.Drawing.Color.Transparent;
-            this.button5.FlatAppearance.BorderColor = System.Drawing.SystemColors.ControlText;
-            this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button5.Location = new System.Drawing.Point(14, 44);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(173, 42);
-            this.button5.TabIndex = 4;
-            this.button5.Text = "Novo Empréstimo";
-            this.button5.UseVisualStyleBackColor = false;
+            this.btnNovoEmprestimo.BackColor = System.Drawing.Color.Transparent;
+            this.btnNovoEmprestimo.FlatAppearance.BorderColor = System.Drawing.SystemColors.ControlText;
+            this.btnNovoEmprestimo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnNovoEmprestimo.Location = new System.Drawing.Point(14, 44);
+            this.btnNovoEmprestimo.Name = "btnNovoEmprestimo";
+            this.btnNovoEmprestimo.Size = new System.Drawing.Size(173, 42);
+            this.btnNovoEmprestimo.TabIndex = 4;
+            this.btnNovoEmprestimo.Text = "Novo Empréstimo";
+            this.btnNovoEmprestimo.UseVisualStyleBackColor = false;
+            this.btnNovoEmprestimo.Click += new System.EventHandler(this.btnNovoEmprestimo_Click);
             // 
             // label5
             // 
@@ -334,7 +335,7 @@
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button btnNovoEmprestimo;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnAtualizarUser;

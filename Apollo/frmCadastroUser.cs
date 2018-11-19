@@ -14,9 +14,14 @@ namespace Apollo
     public partial class frmCadastroUser : Form
     {
         /// <summary>
-        /// Atributo interno para saber de qual formulário o usuário vem
+        /// Atributo interno para saber de qual formulário o usuário vem 
         /// </summary>
         int formOption;
+
+        /// <summary>
+        /// Atributo interno para saber de qual formulário o frmSelecionaUser vem
+        /// </summary>
+        int formUser;
 
         /// <summary>
         /// Atributo interno para saber qual o usuário, caso venha de algum painel (admin ou user)
@@ -28,7 +33,7 @@ namespace Apollo
         /// <summary>
         /// Construtor da classe
         /// </summary>
-        /// <param name="form"><para>De qual formulário o frmCadastroUser está sendo aberto</para><para>(0 - frmLogin; 1 - frmDashboardAdm; 2 - frmDashboard; 3 - frmInicio)</para></param>
+        /// <param name="form"><para>De qual formulário o frmCadastroUser está sendo aberto</para><para>(0 - frmLogin; 1 - frmDashboardAdm; 2 - frmDashboard; 3 - frmInicio; 4 - frmSelecionaUser)</para></param>
         /// <param name="id">Id do usuário logado</param>
         public frmCadastroUser(int form, Int64 id)
         {
@@ -41,7 +46,21 @@ namespace Apollo
         /// <summary>
         /// Construtor da classe
         /// </summary>
-        /// <param name="form"><para>De qual formulário o frmCadastroUser está sendo aberto</para><para>(0 - frmLogin; 1 - frmDashboardAdm; 2 - frmDashboard; 3 - frmInicio)</para></param>
+        /// <param name="form"><para>De qual formulário o frmCadastroUser está sendo aberto</para><para>(0 - frmLogin; 1 - frmDashboardAdm; 2 - frmDashboard; 3 - frmInicio; 4 - frmSelecionaUser)</para></param>
+        /// <param name="id">Id do usuário logado</param>
+        /// <param name="formSelUser">form do qual veio o frmSelecionaUser</param>
+        public frmCadastroUser(int form, Int64 id, int formSelUser)
+        {
+            InitializeComponent();
+            formOption = form;
+            userId = id;
+            formUser = formSelUser;
+        }
+
+        /// <summary>
+        /// Construtor da classe
+        /// </summary>
+        /// <param name="form"><para>De qual formulário o frmCadastroUser está sendo aberto</para><para>(0 - frmLogin; 1 - frmDashboardAdm; 2 - frmDashboard; 3 - frmInicio; 4 - frmSelecionaUser)</para></param>
         public frmCadastroUser(int form)
         {
             InitializeComponent();
@@ -471,10 +490,6 @@ namespace Apollo
             }
         }
 
-        private void btnVoltarOutro_Click(object sender, EventArgs e)
-        {
-            voltar();
-        }
 
         void voltar()
         {
@@ -508,6 +523,13 @@ namespace Apollo
                     this.Close();
                     break;
 
+                case 4://selUser
+                    frmSelecionaUser selUser = new frmSelecionaUser(userId, formUser);
+                    this.Hide();
+                    selUser.ShowDialog();
+                    this.Close();
+                    break;
+
                 default:
                     formOption = 3;
                     voltar();
@@ -515,14 +537,32 @@ namespace Apollo
             }
         }
 
+        bool camposVazios(char opt)
+        {
+            if (opt == 'o')
+                return String.IsNullOrWhiteSpace(txtNomeOutro.Text) && String.IsNullOrWhiteSpace(txtUserOutro.Text) && String.IsNullOrWhiteSpace(txtSenhaOutro.Text) && String.IsNullOrWhiteSpace(txtTelefoneOutro.Text);
+            else
+                return String.IsNullOrWhiteSpace(txtNome.Text) && String.IsNullOrWhiteSpace(txtRA.Text) && String.IsNullOrWhiteSpace(txtUser.Text) && String.IsNullOrWhiteSpace(txtSenha.Text) && String.IsNullOrWhiteSpace(txtAno.Text) && String.IsNullOrWhiteSpace(txtCurso.Text) && String.IsNullOrWhiteSpace(txtTelefone.Text);
+        }
+
+        private void btnVoltarOutro_Click(object sender, EventArgs e)
+        {
+            if (camposVazios('o'))
+                voltar();
+            else if (util.ConfirmaMsg("Deseja realmente voltar?"))
+                voltar();
+        }
+
         private void btnVoltarUser_Click(object sender, EventArgs e)
         {
-            voltar();
+            if(camposVazios('u'))
+                voltar();
+            else if (util.ConfirmaMsg("Deseja realmente voltar?"))
+                voltar();
         }
 
         private void btnFecharOutro_Click(object sender, EventArgs e)
         {
-
             if (util.ConfirmaMsg("Deseja realmente fechar?"))
                 this.Close();
         }
@@ -550,22 +590,22 @@ namespace Apollo
 
         private void txtNome_Enter(object sender, EventArgs e)
         {
-            util.selectTextBoxIfEmpty(txtNome);
+            util.SelectTextBoxIfEmpty(txtNome);
         }
 
         private void txtRA_Enter(object sender, EventArgs e)
         {
-            util.selectTextBoxIfEmpty(txtRA);
+            util.SelectTextBoxIfEmpty(txtRA);
         }
 
         private void txtUser_Enter(object sender, EventArgs e)
         {
-            util.selectTextBoxIfEmpty(txtUser);
+            util.SelectTextBoxIfEmpty(txtUser);
         }
 
         private void txtSenha_Enter(object sender, EventArgs e)
         {
-            util.selectTextBoxIfEmpty(txtSenha);
+            util.SelectTextBoxIfEmpty(txtSenha);
         }
 
         private void numAno_Enter(object sender, EventArgs e)
@@ -582,27 +622,27 @@ namespace Apollo
 
         private void txtTelefone_Enter(object sender, EventArgs e)
         {
-            util.selectTextBoxIfEmpty(txtTelefone);
+            util.SelectTextBoxIfEmpty(txtTelefone);
         }
 
         private void txtNomeOutro_Enter(object sender, EventArgs e)
         {
-            util.selectTextBoxIfEmpty(txtNomeOutro);
+            util.SelectTextBoxIfEmpty(txtNomeOutro);
         }
 
         private void txtUserOutro_Enter(object sender, EventArgs e)
         {
-            util.selectTextBoxIfEmpty(txtUserOutro);
+            util.SelectTextBoxIfEmpty(txtUserOutro);
         }
 
         private void txtSenhaOutro_Enter(object sender, EventArgs e)
         {
-            util.selectTextBoxIfEmpty(txtSenhaOutro);
+            util.SelectTextBoxIfEmpty(txtSenhaOutro);
         }
 
         private void txtTelefoneOutro_Enter(object sender, EventArgs e)
         {
-            util.selectTextBoxIfEmpty(txtTelefoneOutro);
+            util.SelectTextBoxIfEmpty(txtTelefoneOutro);
         }
 
         private void cmbCurso_SelectedIndexChanged(object sender, EventArgs e)

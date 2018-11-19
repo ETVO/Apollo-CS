@@ -130,5 +130,13 @@ namespace Apollo
             cadLivro.ShowDialog();
             this.Close();
         }
+
+        private void btnNovoEmprestimo_Click(object sender, EventArgs e)
+        {
+            frmSelecionaUser selUser = new frmSelecionaUser(idUser, 1);
+            this.Hide();
+            selUser.ShowDialog();
+            this.Close();
+        }
     }
 }

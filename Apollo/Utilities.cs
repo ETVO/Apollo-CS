@@ -73,7 +73,7 @@ namespace Apollo
             return input.Where(x => Char.IsDigit(x)).Any();
         }
 
-        public void selectTextBoxIfEmpty(TextBox txtBox)
+        public void SelectTextBoxIfEmpty(TextBox txtBox)
         {
             if (!String.IsNullOrEmpty(txtBox.Text))
             {

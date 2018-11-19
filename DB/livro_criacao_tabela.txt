@@ -11,6 +11,6 @@ CREATE TABLE public.livro (
     disponivel BOOLEAN NOT NULL DEFAULT TRUE
 );
 
-INSERT INTO public.livro VALUES (DEFAULT, 'LER-1212', 'As aventuras de Tin Tin', 'Ação', 1, 1, 2017, DEFAULT);
+INSERT INTO public.livro VALUES (DEFAULT, 'LBC-1', '50 contos de Machado de Assis', 'Literatura Brasileira Contos', 1, 1, 2007, DEFAULT);
 
 SELECT * FROM public.livro;
