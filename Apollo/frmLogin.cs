@@ -119,7 +119,7 @@ namespace Apollo
                     }
                     else
                     {
-                        util.Msg("Usuário não existente!", MessageBoxIcon.Error);
+                        util.Msg("Usuário inexistente!", MessageBoxIcon.Error);
                         txtUser.Text = "";
                         txtSenha.Text = "";
                         txtUser.Focus();

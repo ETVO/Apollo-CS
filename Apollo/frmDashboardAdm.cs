@@ -138,5 +138,14 @@ namespace Apollo
             selUser.ShowDialog();
             this.Close();
         }
+
+        private void btnConsultaEmprestimo_Click(object sender, EventArgs e)
+        {
+            frmConsultaEmprestimo consEmprestimo = new frmConsultaEmprestimo(idUser, 1);
+            this.Hide();
+            consEmprestimo.ShowDialog();
+            this.Close();
+
+        }
     }
 }

@@ -59,6 +59,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Connection.cs" />
+    <Compile Include="frmAtraso.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmAtraso.Designer.cs">
+      <DependentUpon>frmAtraso.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmAtualizarUser.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -95,6 +101,12 @@
     <Compile Include="frmCadastroUser.Designer.cs">
       <DependentUpon>frmCadastroUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmConsultaEmprestimo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmConsultaEmprestimo.Designer.cs">
+      <DependentUpon>frmConsultaEmprestimo.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmDashboard.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -107,11 +119,23 @@
     <Compile Include="frmDashboardAdm.Designer.cs">
       <DependentUpon>frmDashboardAdm.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmDevolve.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmDevolve.Designer.cs">
+      <DependentUpon>frmDevolve.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmEmprestimo.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmEmprestimo.Designer.cs">
       <DependentUpon>frmEmprestimo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmRealizaEmprestimo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmRealizaEmprestimo.Designer.cs">
+      <DependentUpon>frmRealizaEmprestimo.cs</DependentUpon>
     </Compile>
     <Compile Include="frmFiltrosUser.cs">
       <SubType>Form</SubType>
@@ -146,6 +170,9 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities.cs" />
+    <EmbeddedResource Include="frmAtraso.resx">
+      <DependentUpon>frmAtraso.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmAtualizarUser.resx">
       <DependentUpon>frmAtualizarUser.cs</DependentUpon>
     </EmbeddedResource>
@@ -164,14 +191,23 @@
     <EmbeddedResource Include="frmCadastroUser.resx">
       <DependentUpon>frmCadastroUser.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmConsultaEmprestimo.resx">
+      <DependentUpon>frmConsultaEmprestimo.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmDashboard.resx">
       <DependentUpon>frmDashboard.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmDashboardAdm.resx">
       <DependentUpon>frmDashboardAdm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmDevolve.resx">
+      <DependentUpon>frmDevolve.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmEmprestimo.resx">
       <DependentUpon>frmEmprestimo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmRealizaEmprestimo.resx">
+      <DependentUpon>frmRealizaEmprestimo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmSelecionaLivro.resx">
       <DependentUpon>frmSelecionaLivro.cs</DependentUpon>

@@ -197,9 +197,11 @@ namespace Apollo
                 {
                     dr.Read();
                     string nome = dr.GetString(0);
-                    nome = nome.Split(' ')[0];
+                    //nome = nome.Split(' ')[0];
 
-                    string txt = "Clique duas vezes para selecionar o livro que " + nome + " emprestará";
+                    //string txt = "Clique duas vezes para selecionar o livro que " + nome + " emprestará";
+
+                    string txt = nome;
 
                     lblDesc.Text = txt;
                 }
@@ -227,6 +229,49 @@ namespace Apollo
             grid(false);
         }
 
+        private void btnSelecionar_Click(object sender, EventArgs e)
+        {
+            if(dgvLivro.SelectedRows.Count == 1)
+                seleciona(dgvLivro.SelectedRows[0].Index);
+        }
+
+        void seleciona(int index)
+        {
+            long livroId = Convert.ToInt64(dgvLivro.Rows[index].Cells[0].Value);
+
+            frmRealizaEmprestimo emprestimo;
+
+            if (formOption == 1)//admin
+            {
+                emprestimo = new frmRealizaEmprestimo(userId, admId, livroId, formOption, selUser);
+            }
+            else
+                emprestimo = new frmRealizaEmprestimo(userId, livroId, formOption);
+
+            this.Hide();
+            emprestimo.ShowDialog();
+            this.Close();
+        }
+
+        private void dgvLivro_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+                seleciona(e.RowIndex);
+        }
+
+        private void dgvLivro_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void dgvLivro_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == '\r')
+            {
+                seleciona(dgvLivro.SelectedRows[0].Index);
+            }
+        }
+
         void grid(bool filterOn)
         {
             dgvLivro.DataSource = null;
@@ -234,7 +279,7 @@ namespace Apollo
             {
                 con = new Connection("localhost", "5432", "postgres", "postgres", "admin");
 
-                string sql = "SELECT id_livro, codigo, titulo, genero, (SELECT nome FROM public.autor WHERE public.autor.id_autor = public.livro.id_autor) AS autor, (SELECT nome FROM public.editora WHERE public.editora.id_editora = public.livro.id_editora) AS editora, ano_lancamento FROM public.livro WHERE disponivel = TRUE";
+                string sql = "SELECT id_livro, codigo, titulo, genero, (SELECT nome FROM public.autor WHERE public.autor.id_autor = l.id_autor), (SELECT nome FROM public.editora WHERE public.editora.id_editora = l.id_editora), ano_lancamento FROM public.livro AS l INNER JOIN public.autor AS a ON a.id_autor = l.id_autor INNER JOIN public.editora AS e ON e.id_editora = l.id_editora WHERE disponivel = TRUE";
 
 
                 if (filterOn)
@@ -243,7 +288,7 @@ namespace Apollo
                     if (txtPesquisa.Text.Length > 0)
                     {
                         pesq = txtPesquisa.Text.ToLower();
-                        sql += " AND (lower(codigo) LIKE '%" + pesq + "%' OR lower(titulo) LIKE '%" + pesq + "%')";
+                        sql += " AND (lower(codigo) LIKE '%" + pesq + "%' OR lower(titulo) LIKE '%" + pesq + "%' OR lower(genero) LIKE '%" + pesq + "%') OR lower(a.nome) LIKE '%" + pesq + "%' OR lower(e.nome) LIKE '%" + pesq + "%'";
                     }
                 }
 

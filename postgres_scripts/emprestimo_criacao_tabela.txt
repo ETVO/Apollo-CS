@@ -10,6 +10,4 @@ CREATE TABLE public.emprestimo (
     devolvido BOOLEAN NOT NULL DEFAULT FALSE
 );
 
-INSERT INTO public.emprestimo VALUES (DEFAULT, 1, 1, '10-10-2010', '10-10-2011', DEFAULT);
-
 SELECT * FROM public.emprestimo;

@@ -164,7 +164,8 @@ namespace Apollo
 
         private void dgvUser_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            seleciona(e.RowIndex);
+            if(e.RowIndex >= 0)
+                seleciona(e.RowIndex);
         }
 
         void seleciona(int index)
@@ -198,6 +199,11 @@ namespace Apollo
             {
                 seleciona(dgvUser.SelectedRows[0].Index);
             }
+        }
+
+        private void dgvUser_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
 
         private void txtPesquisa_TextChanged(object sender, EventArgs e)

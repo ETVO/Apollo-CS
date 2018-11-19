@@ -83,6 +83,7 @@
             this.dgvUser.Size = new System.Drawing.Size(804, 371);
             this.dgvUser.StandardTab = true;
             this.dgvUser.TabIndex = 5;
+            this.dgvUser.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvUser_CellContentClick);
             this.dgvUser.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvUser_CellDoubleClick);
             this.dgvUser.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvUser_CellEnter);
             this.dgvUser.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dgvUser_KeyPress);

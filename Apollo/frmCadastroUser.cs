@@ -287,7 +287,7 @@ namespace Apollo
             {
                 if (String.IsNullOrWhiteSpace(fields[i].Text) || util.HasNumber(fields[i].Text))
                 {
-                    if(!((fields[i] == txtRA || fields[i] == txtAno) && !String.IsNullOrWhiteSpace(fields[i].Text)))
+                    if(!((fields[i] == txtRA || fields[i] == txtAno || fields[i] == txtSenha || fields[i] == txtUser) && !String.IsNullOrWhiteSpace(fields[i].Text)))
                     {
                         if (valid) util.Msg("Alguns campos não foram preenchidos ou contém valores inválidos!", MessageBoxIcon.Error);
                         destaca(fields[i]);
@@ -298,7 +298,7 @@ namespace Apollo
             if (!valid)
                 return false;
 
-            if(String.IsNullOrWhiteSpace(txtTelefone.Text) || !util.HasNumber(txtTelefone.Text))
+            if(String.IsNullOrWhiteSpace(txtTelefone.Text))
             {
                 if(util.ConfirmaMsg("Você não preencheu um telefone, deseja cadastrar assim mesmo?"))
                 {
@@ -337,7 +337,7 @@ namespace Apollo
             {
                 if (String.IsNullOrWhiteSpace(fields[i].Text) || util.HasNumber(fields[i].Text))
                 {
-                    if (!((fields[i] == txtRA || fields[i] == txtAno) && !String.IsNullOrWhiteSpace(fields[i].Text)))
+                    if (!((fields[i] == txtRA || fields[i] == txtAno || fields[i] == txtSenha || fields[i] == txtUser) && !String.IsNullOrWhiteSpace(fields[i].Text)))
                     {
                         if (valid) util.Msg("Alguns campos não foram preenchidos ou contém valores inválidos!", MessageBoxIcon.Error);
                         destaca(fields[i]);

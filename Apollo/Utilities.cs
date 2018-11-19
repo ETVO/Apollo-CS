@@ -81,5 +81,47 @@ namespace Apollo
             }
         }
 
+        public DateTime AddWorkdays(DateTime originalDate, int workDays)
+        {
+            DateTime tmpDate = originalDate;
+            while (workDays > 0)
+            {
+                tmpDate = tmpDate.AddDays(1);
+                if (tmpDate.DayOfWeek < DayOfWeek.Saturday &&
+                    tmpDate.DayOfWeek > DayOfWeek.Sunday &&
+                    !IsHoliday(tmpDate))
+                    workDays--;
+            }
+            return tmpDate;
+        }
+
+        public bool IsHoliday(DateTime originalDate)
+        {
+            // INSERT YOUR HOlIDAY-CODE HERE!
+            return false;
+        }
+
+        public int DaysDifference(DateTime a, DateTime b)
+        {
+            int diff = 0;
+            if(a > b)
+            {
+                while (a.Day > b.Day || a.Month > b.Month)
+                {
+                    b = AddWorkdays(b, 1);
+                    diff++;
+                }
+            }
+            else
+            {
+                while (b.Day > a.Day || b.Month > a.Month)
+                {
+                    a = AddWorkdays(a, 1);
+                    diff++;
+                }
+            }
+
+            return diff;
+        }
     }
 }

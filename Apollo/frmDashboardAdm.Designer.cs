@@ -45,8 +45,7 @@
             this.btnCadastroLivro = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.button6 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
+            this.btnConsultaEmprestimo = new System.Windows.Forms.Button();
             this.btnNovoEmprestimo = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
@@ -229,8 +228,7 @@
             // 
             this.panel3.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel3.Controls.Add(this.button6);
-            this.panel3.Controls.Add(this.button4);
+            this.panel3.Controls.Add(this.btnConsultaEmprestimo);
             this.panel3.Controls.Add(this.btnNovoEmprestimo);
             this.panel3.Controls.Add(this.label5);
             this.panel3.Location = new System.Drawing.Point(35, 115);
@@ -238,29 +236,18 @@
             this.panel3.Size = new System.Drawing.Size(210, 333);
             this.panel3.TabIndex = 3;
             // 
-            // button6
+            // btnConsultaEmprestimo
             // 
-            this.button6.BackColor = System.Drawing.Color.Transparent;
-            this.button6.FlatAppearance.BorderColor = System.Drawing.SystemColors.ControlText;
-            this.button6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button6.Location = new System.Drawing.Point(14, 140);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(173, 42);
-            this.button6.TabIndex = 6;
-            this.button6.Text = "Consultar &Atrasos";
-            this.button6.UseVisualStyleBackColor = false;
-            // 
-            // button4
-            // 
-            this.button4.BackColor = System.Drawing.Color.Transparent;
-            this.button4.FlatAppearance.BorderColor = System.Drawing.SystemColors.ControlText;
-            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button4.Location = new System.Drawing.Point(14, 92);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(173, 42);
-            this.button4.TabIndex = 5;
-            this.button4.Text = "Consultar Empréstimos";
-            this.button4.UseVisualStyleBackColor = false;
+            this.btnConsultaEmprestimo.BackColor = System.Drawing.Color.Transparent;
+            this.btnConsultaEmprestimo.FlatAppearance.BorderColor = System.Drawing.SystemColors.ControlText;
+            this.btnConsultaEmprestimo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnConsultaEmprestimo.Location = new System.Drawing.Point(14, 92);
+            this.btnConsultaEmprestimo.Name = "btnConsultaEmprestimo";
+            this.btnConsultaEmprestimo.Size = new System.Drawing.Size(173, 42);
+            this.btnConsultaEmprestimo.TabIndex = 5;
+            this.btnConsultaEmprestimo.Text = "Consultar &Empréstimos";
+            this.btnConsultaEmprestimo.UseVisualStyleBackColor = false;
+            this.btnConsultaEmprestimo.Click += new System.EventHandler(this.btnConsultaEmprestimo_Click);
             // 
             // btnNovoEmprestimo
             // 
@@ -333,8 +320,7 @@
         private System.Windows.Forms.Button btnCadastroLivro;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button btnConsultaEmprestimo;
         private System.Windows.Forms.Button btnNovoEmprestimo;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label3;

@@ -343,8 +343,6 @@ C:\Users\ra1757075\Desktop\Apollo\Apollo\bin\Debug\Npgsql.xml
 C:\Users\ra1757075\Desktop\Apollo\Apollo\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
 C:\Users\ra1757075\Desktop\Apollo\Apollo\bin\Debug\System.Threading.Tasks.Extensions.xml
 C:\Users\ra1757075\Desktop\Apollo\Apollo\bin\Debug\System.ValueTuple.xml
-C:\Users\ra1757075\Desktop\Apollo\Apollo\obj\Debug\Apollo.csprojAssemblyReference.cache
-C:\Users\ra1757075\Desktop\Apollo\Apollo\obj\Debug\Apollo.exe.config
 C:\Users\ra1757075\Desktop\Apollo\Apollo\obj\Debug\Apollo.frmCadastroUser.resources
 C:\Users\ra1757075\Desktop\Apollo\Apollo\obj\Debug\Apollo.frmDashboard.resources
 C:\Users\ra1757075\Desktop\Apollo\Apollo\obj\Debug\Apollo.frmDashboardAdm.resources
@@ -353,7 +351,6 @@ C:\Users\ra1757075\Desktop\Apollo\Apollo\obj\Debug\Apollo.frmLogin.resources
 C:\Users\ra1757075\Desktop\Apollo\Apollo\obj\Debug\Apollo.Properties.Resources.resources
 C:\Users\ra1757075\Desktop\Apollo\Apollo\obj\Debug\Apollo.csproj.GenerateResource.cache
 C:\Users\ra1757075\Desktop\Apollo\Apollo\obj\Debug\Apollo.csproj.CoreCompileInputs.cache
-C:\Users\ra1757075\Desktop\Apollo\Apollo\obj\Debug\Apollo.csproj.CopyComplete
 C:\Users\ra1757075\Desktop\Apollo\Apollo\obj\Debug\Apollo.exe
 C:\Users\ra1757075\Desktop\Apollo\Apollo\obj\Debug\Apollo.pdb
 C:\Users\Estevão Rolim\Documents\CTI\Apollo\Apollo\obj\Debug\Apollo.frmCadastroUser.resources
@@ -364,3 +361,19 @@ C:\Users\Estevão Rolim\Documents\CTI\Apollo\Apollo\obj\Debug\Apollo.frmCadastro
 C:\Users\Estevão Rolim\Documents\CTI\Apollo\Apollo\obj\Debug\Apollo.frmCadastroEditora.resources
 C:\Users\Estevão Rolim\Documents\CTI\Apollo\Apollo\obj\Debug\Apollo.frmSelecionaLivro.resources
 C:\Users\Estevão Rolim\Documents\CTI\Apollo\Apollo\obj\Debug\Apollo.frmSelecionaUser.resources
+C:\Users\ra1757075\Desktop\Apollo\Apollo\obj\Debug\Apollo.frmAtualizarUser.resources
+C:\Users\ra1757075\Desktop\Apollo\Apollo\obj\Debug\Apollo.frmCadastroAutor.resources
+C:\Users\ra1757075\Desktop\Apollo\Apollo\obj\Debug\Apollo.frmCadastroEditora.resources
+C:\Users\ra1757075\Desktop\Apollo\Apollo\obj\Debug\Apollo.frmCadastroGenero.resources
+C:\Users\ra1757075\Desktop\Apollo\Apollo\obj\Debug\Apollo.frmCadastroLivro.resources
+C:\Users\ra1757075\Desktop\Apollo\Apollo\obj\Debug\Apollo.frmEmprestimo.resources
+C:\Users\ra1757075\Desktop\Apollo\Apollo\obj\Debug\Apollo.frmSelecionaLivro.resources
+C:\Users\ra1757075\Desktop\Apollo\Apollo\obj\Debug\Apollo.frmSelecionaUser.resources
+C:\Users\Estevão Rolim\Documents\CTI\Apollo\Apollo\obj\Debug\Apollo.frmConsultaEmprestimo.resources
+C:\Users\Estevão Rolim\Documents\CTI\Apollo\Apollo\obj\Debug\Apollo.frmEmprestimo.resources
+C:\Users\ra1757075\Desktop\Apollo\Apollo\obj\Debug\Apollo.csprojResolveAssemblyReference.cache
+C:\Users\ra1757075\Desktop\Apollo\Apollo\obj\Debug\Apollo.csproj.Apollo.exe.config
+C:\Users\ra1757075\Desktop\Apollo\Apollo\obj\Debug\Apollo.frmConsultaEmprestimo.resources
+C:\Users\Estevão Rolim\Documents\CTI\Apollo\Apollo\obj\Debug\Apollo.frmRealizaEmprestimo.resources
+C:\Users\Estevão Rolim\Documents\CTI\Apollo\Apollo\obj\Debug\Apollo.frmAtraso.resources
+C:\Users\Estevão Rolim\Documents\CTI\Apollo\Apollo\obj\Debug\Apollo.frmDevolve.resources

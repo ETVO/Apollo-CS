@@ -379,11 +379,11 @@ namespace Apollo
 
                     con.Close();
 
+                    string sql1;
 
                     con = new Connection("localhost", "5432", "postgres", "postgres", "admin");
 
-                    sql = "INSERT INTO public.livro (id_livro, codigo, titulo, genero, id_autor, id_editora, ano_lancamento) VALUES " +
-                        "(" + id_livro + ", '" + txtCodigo.Text + "', '" + txtTitulo.Text + "', '" + genero + "', " + id_autor + ", " + id_editora + ", " + txtAnoPublicacao.Text + ");";
+                    sql1 = "INSERT INTO public.livro (id_livro, codigo, titulo, genero, id_autor, id_editora, ano_lancamento) VALUES (" + id_livro + ", '" + txtCodigo.Text + "', '" + txtTitulo.Text + "', '" + genero + "', " + id_autor + ", " + id_editora + ", " + txtAnoPublicacao.Text + ");";
 
                     con.Run(sql);
 
