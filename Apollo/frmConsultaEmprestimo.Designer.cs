@@ -59,6 +59,7 @@
             this.txtPesquisa.Name = "txtPesquisa";
             this.txtPesquisa.Size = new System.Drawing.Size(349, 20);
             this.txtPesquisa.TabIndex = 68;
+            this.txtPesquisa.TextChanged += new System.EventHandler(this.txtPesquisa_TextChanged);
             // 
             // label3
             // 
@@ -78,6 +79,7 @@
             this.btnFechar.TabIndex = 73;
             this.btnFechar.Text = "&Fechar";
             this.btnFechar.UseVisualStyleBackColor = true;
+            this.btnFechar.Click += new System.EventHandler(this.btnFechar_Click);
             // 
             // btnVoltar
             // 
@@ -97,6 +99,7 @@
             this.btnRecarregar.TabIndex = 70;
             this.btnRecarregar.Text = "Atualizar";
             this.btnRecarregar.UseVisualStyleBackColor = true;
+            this.btnRecarregar.Click += new System.EventHandler(this.btnRecarregar_Click);
             // 
             // dgvEmprestimo
             // 
@@ -119,6 +122,7 @@
             this.dgvEmprestimo.StandardTab = true;
             this.dgvEmprestimo.TabIndex = 71;
             this.dgvEmprestimo.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvEmprestimo_CellDoubleClick);
+            this.dgvEmprestimo.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvEmprestimo_ColumnHeaderMouseClick);
             this.dgvEmprestimo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dgvEmprestimo_KeyPress);
             // 
             // lblDesc
@@ -146,6 +150,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(629, 533);
             this.Controls.Add(this.btnSelecionar);
             this.Controls.Add(this.txtPesquisa);

@@ -67,6 +67,12 @@ namespace Apollo
             return false;
         }
 
+        List<long> idAtrasados = new List<long>();
+
+        Dictionary<long, string> titles = new Dictionary<long, string>();
+
+        Dictionary<long, string> dates = new Dictionary<long, string>();
+
         void grid(bool filterOn)
         {
             dgvUser.DataSource = null;
@@ -74,7 +80,7 @@ namespace Apollo
             {
                 con = new Connection("localhost", "5432", "postgres", "postgres", "admin");
 
-                string sql = "SELECT id_user, nome, ra, login, serie, curso, periodo, tipo, telefone FROM public.user WHERE bloqueado = FALSE";
+                string sql = "SELECT id_user, nome, ra, login, serie, curso, periodo, tipo FROM public.user WHERE bloqueado = FALSE";
 
 
 
@@ -88,11 +94,16 @@ namespace Apollo
                     }
                 }
 
+                sql += " ORDER BY nome ASC";
+
                 DataTable dt = con.SelectDataTable(sql);
 
+                con.Close();
                 if (dt.Rows.Count > 0)
                 {
                     dgvUser.DataSource = dt;
+
+                    setToAutoFill(dgvUser);
 
                     int i = 0;
                     dgvUser.Columns[i++].HeaderText = "Id";
@@ -103,11 +114,49 @@ namespace Apollo
                     dgvUser.Columns[i++].HeaderText = "Curso";
                     dgvUser.Columns[i++].HeaderText = "Período";
                     dgvUser.Columns[i++].HeaderText = "Tipo";
-                    dgvUser.Columns[i++].HeaderText = "Telefone";
+
+                    idAtrasados.Clear();
+                    dates.Clear();
+                    titles.Clear();
+                    for (int j = 0; j < dgvUser.Rows.Count; j++)
+                    {
+                        con = new Connection("localhost", "5432", "postgres", "postgres", "admin");
+
+                        long id_user = Convert.ToInt64(dgvUser.Rows[j].Cells[0].Value);
+
+                        string select = "SELECT to_char(data_prev_dev, 'dd/MM/yyyy'), l.titulo FROM public.emprestimo AS e INNER JOIN public.livro AS l ON l.id_livro = e.id_livro WHERE devolvido = FALSE AND id_user = " + id_user;
+
+                        NpgsqlDataReader sdr = con.Select(select);
+
+                        if (sdr.HasRows)
+                        {
+                            while (sdr.Read())
+                            {
+                                string data = sdr.GetString(0);
+
+                                string titulo = sdr.GetString(1);
+
+                                DateTime date = DateTime.ParseExact(data, "dd/MM/yyyy", null);
+
+                                if(DateTime.Now > date)
+                                {
+                                    dgvUser.Rows[j].DefaultCellStyle.BackColor = Color.FromArgb(255, 192, 192);
+
+
+                                    idAtrasados.Add(id_user);
+
+                                    dates.Add(id_user, data);
+
+                                    titles.Add(id_user, titulo);
+                                }
+                            }
+                        }
+
+                        con.Close();
+                    }
 
                     dgvUser.Columns[0].Visible = false;
                 }
-                con.Close();
             }
             catch (Exception ex)
             {
@@ -116,6 +165,16 @@ namespace Apollo
             }
 
             dgvUser.ClearSelection();
+        }
+
+        void setToAutoFill(DataGridView dgv)
+        {
+            DataGridViewAutoSizeColumnMode mode = DataGridViewAutoSizeColumnMode.Fill;
+
+            for (int j = 0; j < dgv.Columns.Count; j++)
+            {
+                dgv.Columns[j].AutoSizeMode = mode;
+            }
         }
 
         void voltar()
@@ -172,19 +231,26 @@ namespace Apollo
         {
             long selUser = Convert.ToInt64(dgvUser.Rows[index].Cells[0].Value);
 
-            frmSelecionaLivro selLivro;
-
-            if (formOption == 1)//admin dashboard
+            if (!idAtrasados.Contains(selUser))
             {
-                selLivro = new frmSelecionaLivro(selUser, admId, formOption, true);
+                frmSelecionaLivro selLivro;
+
+                if (formOption == 1)//admin dashboard
+                {
+                    selLivro = new frmSelecionaLivro(selUser, admId, formOption, true);
+                }
+                else
+                {
+                    selLivro = new frmSelecionaLivro(selUser, formOption, true);
+                }
+                this.Hide();
+                selLivro.ShowDialog();
+                this.Close();
             }
             else
             {
-                selLivro = new frmSelecionaLivro(selUser, formOption, true);
+                util.Msg("Existe um empréstimo atrasado no nome desse usuário!\n\nLivro: " + titles[selUser] + "\nVencimento: " + dates[selUser], MessageBoxIcon.Error);
             }
-            this.Hide();
-            selLivro.ShowDialog();
-            this.Close();
         }
 
         private void btnSelecionar_Click(object sender, EventArgs e)
@@ -204,6 +270,38 @@ namespace Apollo
         private void dgvUser_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void dgvUser_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            int i = 0;
+            dgvUser.Columns[i++].HeaderText = "Id";
+            dgvUser.Columns[i++].HeaderText = "Nome";
+            dgvUser.Columns[i++].HeaderText = "RA";
+            dgvUser.Columns[i++].HeaderText = "Usuário";
+            dgvUser.Columns[i++].HeaderText = "Ano";
+            dgvUser.Columns[i++].HeaderText = "Curso";
+            dgvUser.Columns[i++].HeaderText = "Período";
+            dgvUser.Columns[i++].HeaderText = "Tipo";
+
+            for (int j = 0; j < dgvUser.Rows.Count; j++)
+            {
+                long id_user = Convert.ToInt64(dgvUser.Rows[j].Cells[0].Value);
+
+                if(idAtrasados.Contains(id_user))
+                {
+                    string data = dates[id_user];
+
+                    DateTime date = DateTime.ParseExact(data, "dd/MM/yyyy", null);
+
+                    if (DateTime.Now > date)
+                    {
+                        dgvUser.Rows[j].DefaultCellStyle.BackColor = Color.FromArgb(255, 192, 192);
+                    }
+                }
+            }
+
+            dgvUser.Columns[0].Visible = false;
         }
 
         private void txtPesquisa_TextChanged(object sender, EventArgs e)

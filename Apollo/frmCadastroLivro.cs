@@ -34,6 +34,7 @@ namespace Apollo
         {
             cmbReload('*');
             resetaCor();
+            toolTip.SetToolTip(btnAddAutor, "Clique aqui para adicionar mais autores");
         }
 
         void cmbReload(char opt)
@@ -96,10 +97,15 @@ namespace Apollo
                         idAutores.Clear();
                         while (dr.Read())
                         {
-                            string autor = dr.GetString(1);
-                            cmbAutor.Items.Add(autor);
+                            long id_livro = dr.GetInt64(0);
 
-                            idAutores.Add(dr.GetInt64(0));
+                            if (!idSelecionados.Contains(id_livro))
+                            {
+                                string autor = dr.GetString(1);
+                                cmbAutor.Items.Add(autor);
+
+                                idAutores.Add(id_livro);
+                            }
                         }
                     }
                 }
@@ -247,7 +253,9 @@ namespace Apollo
 
         private void btnCria_Click(object sender, EventArgs e)
         {
-            cria();
+            util.Msg("Ainda não consertada!", MessageBoxIcon.Error);
+
+            //cria();
         }
 
         void destaca(TextBox txt)
@@ -329,8 +337,13 @@ namespace Apollo
         List<long> idEditoras = new List<long>();
         List<long> idGeneros = new List<long>();
 
+        long id_livro, id_autor, id_editora, id_genero;
+
+        string genero;
+
         void cria()
         {
+
             try
             {
                 if (validaCampos())
@@ -343,8 +356,6 @@ namespace Apollo
 
                     NpgsqlDataReader dr = con.Select(sql);
 
-                    long id_livro;
-
                     if (dr.HasRows)
                     {
                         dr.Read();
@@ -355,17 +366,15 @@ namespace Apollo
 
                     con.Close();
                     
-                    long id_autor = idAutores[cmbAutor.SelectedIndex];
-                    long id_editora = idEditoras[cmbEditora.SelectedIndex];
-                    long id_genero = idGeneros[cmbGenero.SelectedIndex];
+                    id_autor = idAutores[cmbAutor.SelectedIndex];
+                    id_editora = idEditoras[cmbEditora.SelectedIndex];
+                    id_genero = idGeneros[cmbGenero.SelectedIndex];
 
                     con = new Connection("localhost", "5432", "postgres", "postgres", "admin");
 
                     sql = "SELECT nome FROM public.genero WHERE id_genero = " + id_genero + ";";
 
                     dr = con.Select(sql);
-
-                    string genero;
 
                     if (dr.HasRows)
                     {
@@ -383,9 +392,14 @@ namespace Apollo
 
                     con = new Connection("localhost", "5432", "postgres", "postgres", "admin");
 
-                    sql1 = "INSERT INTO public.livro (id_livro, codigo, titulo, genero, id_autor, id_editora, ano_lancamento) VALUES (" + id_livro + ", '" + txtCodigo.Text + "', '" + txtTitulo.Text + "', '" + genero + "', " + id_autor + ", " + id_editora + ", " + txtAnoPublicacao.Text + ");";
+                    string ano_pub = txtAnoPublicacao.Text;
 
-                    con.Run(sql);
+                    if (ano_pub.Length == 0)
+                        ano_pub = "null";
+
+                    sql1 = "INSERT INTO public.livro (id_livro, codigo, titulo, genero, id_autor, id_editora, ano_lancamento) VALUES (" + id_livro + ", '" + txtCodigo.Text + "', '" + txtTitulo.Text + "', '" + genero + "', " + id_autor + ", " + id_editora + ", " + ano_pub + ")";
+
+                    con.Run(sql1);
 
                     util.Msg("Livro \"" + txtTitulo.Text + "\" cadastrado com sucesso!", MessageBoxIcon.Information);
 
@@ -446,6 +460,50 @@ namespace Apollo
         private void txtAnoPublicacao_Enter(object sender, EventArgs e)
         {
             util.SelectTextBoxIfEmpty(txtAnoPublicacao);
+        }
+
+        private void btnAddAutor_Click(object sender, EventArgs e)
+        {
+            if(cmbAutor.SelectedIndex > -1)
+            {
+                listAutores.Items.Add(cmbAutor.Text);
+                idSelecionados.Add(idAutores[cmbAutor.SelectedIndex]);
+                idAutores.Remove(idAutores[cmbAutor.SelectedIndex]);
+                cmbAutor.Items.Remove(cmbAutor.Items[cmbAutor.SelectedIndex]);
+
+                lblTitle.Text = "";
+                for (int i = 0; i < idSelecionados.Count; i++)
+                {
+                    lblTitle.Text += idSelecionados[i].ToString();
+                }
+            }
+        }
+
+        List<long> idSelecionados = new List<long>();
+
+        private void btnExcluiAutor_Click(object sender, EventArgs e)
+        {
+            int selAutor;
+
+            if((selAutor = listAutores.SelectedIndex) > -1)
+            {
+                idSelecionados.Remove(idSelecionados[selAutor]);
+                listAutores.Items.Remove(listAutores.Items[selAutor]);
+                cmbReload('a');
+            }
+        }
+
+        private void btnExcluiTodos_Click(object sender, EventArgs e)
+        {
+            if(listAutores.Items.Count > 1)
+            {
+                if (util.ConfirmaMsg("Deseja realmente excluir todos os autores?"))
+                {
+                    idSelecionados.Clear();
+                    listAutores.Items.Clear();
+                    cmbReload('a');
+                }
+            }
         }
 
         void genCodigo()

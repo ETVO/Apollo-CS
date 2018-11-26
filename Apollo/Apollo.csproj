@@ -32,6 +32,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>logo.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Npgsql, Version=4.0.3.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
       <HintPath>..\packages\Npgsql.4.0.3\lib\net451\Npgsql.dll</HintPath>
@@ -106,6 +109,12 @@
     </Compile>
     <Compile Include="frmConsultaEmprestimo.Designer.cs">
       <DependentUpon>frmConsultaEmprestimo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmConsultaLivro.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmConsultaLivro.Designer.cs">
+      <DependentUpon>frmConsultaLivro.cs</DependentUpon>
     </Compile>
     <Compile Include="frmDashboard.cs">
       <SubType>Form</SubType>
@@ -194,6 +203,9 @@
     <EmbeddedResource Include="frmConsultaEmprestimo.resx">
       <DependentUpon>frmConsultaEmprestimo.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmConsultaLivro.resx">
+      <DependentUpon>frmConsultaLivro.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmDashboard.resx">
       <DependentUpon>frmDashboard.cs</DependentUpon>
     </EmbeddedResource>
@@ -243,6 +255,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="logo.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

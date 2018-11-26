@@ -47,9 +47,9 @@
             this.lblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTitle.Location = new System.Drawing.Point(12, 9);
             this.lblTitle.Name = "lblTitle";
-            this.lblTitle.Size = new System.Drawing.Size(804, 45);
+            this.lblTitle.Size = new System.Drawing.Size(714, 45);
             this.lblTitle.TabIndex = 1;
-            this.lblTitle.Text = "Selecione o Usuário";
+            this.lblTitle.Text = "Para quem?";
             this.lblTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblDesc
@@ -58,7 +58,7 @@
             this.lblDesc.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDesc.Location = new System.Drawing.Point(12, 44);
             this.lblDesc.Name = "lblDesc";
-            this.lblDesc.Size = new System.Drawing.Size(804, 30);
+            this.lblDesc.Size = new System.Drawing.Size(714, 30);
             this.lblDesc.TabIndex = 12;
             this.lblDesc.Text = "Clique duas vezes para selecionar o usuário que emprestará o livro";
             this.lblDesc.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -80,17 +80,18 @@
             this.dgvUser.ShowCellToolTips = false;
             this.dgvUser.ShowEditingIcon = false;
             this.dgvUser.ShowRowErrors = false;
-            this.dgvUser.Size = new System.Drawing.Size(804, 371);
+            this.dgvUser.Size = new System.Drawing.Size(714, 371);
             this.dgvUser.StandardTab = true;
             this.dgvUser.TabIndex = 5;
             this.dgvUser.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvUser_CellContentClick);
             this.dgvUser.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvUser_CellDoubleClick);
             this.dgvUser.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvUser_CellEnter);
+            this.dgvUser.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvUser_ColumnHeaderMouseClick);
             this.dgvUser.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.dgvUser_KeyPress);
             // 
             // btnRecarregar
             // 
-            this.btnRecarregar.Location = new System.Drawing.Point(441, 81);
+            this.btnRecarregar.Location = new System.Drawing.Point(351, 81);
             this.btnRecarregar.Name = "btnRecarregar";
             this.btnRecarregar.Size = new System.Drawing.Size(121, 32);
             this.btnRecarregar.TabIndex = 2;
@@ -100,7 +101,7 @@
             // 
             // btnCadastroUser
             // 
-            this.btnCadastroUser.Location = new System.Drawing.Point(695, 81);
+            this.btnCadastroUser.Location = new System.Drawing.Point(605, 81);
             this.btnCadastroUser.Name = "btnCadastroUser";
             this.btnCadastroUser.Size = new System.Drawing.Size(121, 32);
             this.btnCadastroUser.TabIndex = 4;
@@ -110,7 +111,7 @@
             // 
             // btnFechar
             // 
-            this.btnFechar.Location = new System.Drawing.Point(761, 496);
+            this.btnFechar.Location = new System.Drawing.Point(671, 496);
             this.btnFechar.Name = "btnFechar";
             this.btnFechar.Size = new System.Drawing.Size(55, 26);
             this.btnFechar.TabIndex = 7;
@@ -134,7 +135,7 @@
             this.txtPesquisa.Location = new System.Drawing.Point(12, 88);
             this.txtPesquisa.MaxLength = 70;
             this.txtPesquisa.Name = "txtPesquisa";
-            this.txtPesquisa.Size = new System.Drawing.Size(423, 20);
+            this.txtPesquisa.Size = new System.Drawing.Size(333, 20);
             this.txtPesquisa.TabIndex = 1;
             this.txtPesquisa.TextChanged += new System.EventHandler(this.txtPesquisa_TextChanged);
             // 
@@ -150,7 +151,7 @@
             // 
             // btnSelecionar
             // 
-            this.btnSelecionar.Location = new System.Drawing.Point(568, 81);
+            this.btnSelecionar.Location = new System.Drawing.Point(478, 81);
             this.btnSelecionar.Name = "btnSelecionar";
             this.btnSelecionar.Size = new System.Drawing.Size(121, 32);
             this.btnSelecionar.TabIndex = 3;
@@ -162,7 +163,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(828, 533);
+            this.ClientSize = new System.Drawing.Size(741, 533);
             this.Controls.Add(this.btnSelecionar);
             this.Controls.Add(this.txtPesquisa);
             this.Controls.Add(this.label3);

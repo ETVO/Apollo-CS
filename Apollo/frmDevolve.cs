@@ -27,6 +27,8 @@ namespace Apollo
 
         bool paga;
 
+        DialogResult retorno;
+
         public frmDevolve()
         {
             InitializeComponent();
@@ -93,6 +95,7 @@ namespace Apollo
                 {
 
                     string senha = txtSenha.Text;
+                    senha = util.Md5(senha);
                     string user = txtUser.Text;
 
                     con = new Connection("localhost", "5432", "postgres", "postgres", "admin");
@@ -111,6 +114,8 @@ namespace Apollo
                                 devolve(dr.GetBoolean(11));
 
                                 util.Msg("Devolução realizada com sucesso!", MessageBoxIcon.Information);
+
+                                retorno = DialogResult.OK;
                             }
                             else
                             {
@@ -134,12 +139,15 @@ namespace Apollo
                     }
                     if (con != null)
                         con.Close();
+                    this.DialogResult = retorno;
+
+                    this.Close();
                 }
             }
             catch (Exception ex)
             {
                 util.Msg("Algo deu errado!\n\nMais detalhes: " + ex.Message, MessageBoxIcon.Error);
-                btnFechar_Click(null, null);
+                this.Close();
             }
         }
 
@@ -155,6 +163,14 @@ namespace Apollo
                     
                     con.Run(sql);
 
+                    con.Close();
+
+                    con = new Connection("localhost", "5432", "postgres", "postgres", "admin");
+
+                    sql = "UPDATE public.livro SET disponivel = TRUE WHERE codigo = " + codigo;
+
+                    con.Run(sql);
+
                 }
                 catch (Exception ex)
                 {
@@ -167,12 +183,26 @@ namespace Apollo
             }
         }
 
+        private void txtSenha_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == '\r')
+                devolve();
+        }
+
+        private void txtUser_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == '\r')
+                devolve();
+        }
+
         Connection con;
         Utilities util = new Utilities("Apollo - Devolução de Empréstimo");
 
         private void frmDevolve_Load(object sender, EventArgs e)
         {
             displayData();
+
+            retorno = DialogResult.Cancel;
         }
 
         void displayData()
@@ -197,7 +227,7 @@ namespace Apollo
                 else
                     throw new Exception("Não foi possível localizar o empréstimo!");
 
-                string desc = "Código: " + codigo + " Usuário: " + user;
+                string desc = "Código do Livro: " + codigo;
 
                 lblDesc.Text = desc;
                 
@@ -205,7 +235,7 @@ namespace Apollo
             catch (Exception ex)
             {
                 util.Msg("Algo deu errado!\n\nMais detalhes: " + ex.Message, MessageBoxIcon.Error);
-                btnFechar_Click(null, null);
+                this.Close();
             }
         }
     }

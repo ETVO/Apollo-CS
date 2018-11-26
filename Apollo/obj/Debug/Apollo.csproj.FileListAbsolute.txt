@@ -377,3 +377,4 @@ C:\Users\ra1757075\Desktop\Apollo\Apollo\obj\Debug\Apollo.frmConsultaEmprestimo.
 C:\Users\Estevão Rolim\Documents\CTI\Apollo\Apollo\obj\Debug\Apollo.frmRealizaEmprestimo.resources
 C:\Users\Estevão Rolim\Documents\CTI\Apollo\Apollo\obj\Debug\Apollo.frmAtraso.resources
 C:\Users\Estevão Rolim\Documents\CTI\Apollo\Apollo\obj\Debug\Apollo.frmDevolve.resources
+C:\Users\Estevão Rolim\Documents\CTI\Apollo\Apollo\obj\Debug\Apollo.frmConsultaLivro.resources

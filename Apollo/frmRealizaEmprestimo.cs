@@ -217,10 +217,44 @@ namespace Apollo
             this.Close();
         }
 
+        string empPrevDev, empTitulo, empUser;
+
+        DateTime empDev;
+
         void displayData()
         {
             try
             {
+                con = new Connection("localhost", "5432", "postgres", "postgres", "admin");
+
+                string sql1 = "SELECT l.titulo, to_char(data_prev_dev, 'dd/MM/yyyy'), u.login FROM public.emprestimo AS e INNER JOIN public.user AS u ON u.id_user = e.id_user INNER JOIN public.livro AS l ON l.id_livro = e.id_livro WHERE e.devolvido = FALSE AND e.id_user = " + userId;
+
+                NpgsqlDataReader dr1 = con.Select(sql1);
+
+                if (dr1.HasRows)
+                {
+                    while (dr1.Read())
+                    {
+                        empTitulo = dr1.GetString(0);
+                        empPrevDev = dr1.GetString(1);
+                        empUser = dr1.GetString(2);
+
+                        empDev = DateTime.ParseExact(empPrevDev, "dd/MM/yyyy", null);
+
+                        if(DateTime.Now > empDev)
+                        {
+                            util.Msg("Existe um empréstimo atrasado no nome do usuário \"" + empUser + "\"\n\nLivro: " + empTitulo + "\nVencimento: " + empPrevDev + " (atrasado)", MessageBoxIcon.Error);
+                            voltar();
+                            return;
+                        }
+                    }
+
+                    con.Close();
+                }
+                else
+                    con.Close();
+
+
                 con = new Connection("localhost", "5432", "postgres", "postgres", "admin");
 
                 string sql = "SELECT titulo, codigo, id_autor FROM public.livro WHERE id_livro = " + livroId;

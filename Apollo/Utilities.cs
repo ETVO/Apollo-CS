@@ -106,7 +106,7 @@ namespace Apollo
             int diff = 0;
             if(a > b)
             {
-                while (a.Day > b.Day || a.Month > b.Month)
+                while (a.Date > b.Date)
                 {
                     b = AddWorkdays(b, 1);
                     diff++;
@@ -114,7 +114,7 @@ namespace Apollo
             }
             else
             {
-                while (b.Day > a.Day || b.Month > a.Month)
+                while (b.Date > a.Date)
                 {
                     a = AddWorkdays(a, 1);
                     diff++;

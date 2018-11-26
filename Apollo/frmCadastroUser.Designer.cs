@@ -149,7 +149,7 @@ namespace Apollo
             this.grpPeriodo.Size = new System.Drawing.Size(200, 48);
             this.grpPeriodo.TabIndex = 7;
             this.grpPeriodo.TabStop = false;
-            this.grpPeriodo.Text = "Período";
+            this.grpPeriodo.Text = "Período *";
             // 
             // radNoturno
             // 

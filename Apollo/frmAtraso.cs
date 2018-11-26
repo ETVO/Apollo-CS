@@ -27,6 +27,8 @@ namespace Apollo
 
         bool paga;
 
+        DialogResult retorno;
+
         public frmAtraso()
         {
             InitializeComponent();
@@ -45,6 +47,7 @@ namespace Apollo
 
         private void frmAtraso_Load(object sender, EventArgs e)
         {
+            retorno = DialogResult.Cancel;
             displayData();
 
             switch (op)
@@ -91,7 +94,7 @@ namespace Apollo
 
                 multa = dias * diaMulta;
 
-                string desc = "Código: " + codigo + " Usuário: " + user;
+                string desc = "Código do Livro: " + codigo;
 
                 lblDesc.Text = desc;
 
@@ -101,7 +104,7 @@ namespace Apollo
             catch (Exception ex)
             {
                 util.Msg("Algo deu errado!\n\nMais detalhes: " + ex.Message, MessageBoxIcon.Error);
-                btnFechar_Click(null, null);
+                this.Close();
             }
         }
 
@@ -162,12 +165,12 @@ namespace Apollo
             if (visible)
             {
                 this.Height = 397;
-                btnFechar.Location = new Point(456, 320);
+                btnFechar.Location = new Point(272, 320);
             }
             else
             {
                 this.Height = 642;
-                btnFechar.Location = new Point(456, 565);
+                btnFechar.Location = new Point(272, 565);
             }
         }
 
@@ -188,6 +191,7 @@ namespace Apollo
                 {
 
                     string senha = txtSenha.Text;
+                    senha = util.Md5(senha);
                     string user = txtUser.Text;
 
                     con = new Connection("localhost", "5432", "postgres", "postgres", "admin");
@@ -205,7 +209,17 @@ namespace Apollo
                             {
                                 altera(dr.GetBoolean(11));
 
-                                util.Msg(operacao + " realizada com sucesso!", MessageBoxIcon.Information);
+
+
+                                if(option == 0)
+                                {
+                                    util.Msg(operacao + " realizada com sucesso!", MessageBoxIcon.Information);
+
+                                    if (op == 'd')
+                                        retorno = DialogResult.OK;
+                                    else
+                                        retorno = DialogResult.Retry;
+                                }
                             }
                             else
                             {
@@ -229,14 +243,21 @@ namespace Apollo
                     }
                     if (con != null)
                         con.Close();
+                    if(option == 0)
+                    {
+                        this.DialogResult = retorno;
+                        this.Close();
+                    }
                 }
             }
             catch(Exception ex)
             {
                 util.Msg("Algo deu errado!\n\nMais detalhes: " + ex.Message, MessageBoxIcon.Error);
-                btnFechar_Click(null, null);
+                this.Close();
             }
         }
+
+        int option = 0;
 
         string justificativa;
 
@@ -259,15 +280,21 @@ namespace Apollo
 
                         if (util.ConfirmaMsg("Deseja realmente renovar esse livro ?\n\nA nova data de devolução será " + novaData + "."))
                         {
-                            string sql = "UPDATE public.emprestimo SET data_prev_dev = '" + novaDate + " WHERE id_emprestimo = " + empId;
+                            string sql = "UPDATE public.emprestimo SET data_prev_dev = to_date('" + novaData + "', 'dd/MM/yyyy') WHERE id_emprestimo = " + empId;
 
                             con.Run(sql);
+                        }
+                        else
+                        {
+                            option = 1;
                         }
 
 
                     }
                     catch (Exception ex)
                     {
+                        option = 2;
+
                         throw new Exception(ex.Message);
                     }
                 }
@@ -278,20 +305,35 @@ namespace Apollo
                         if (radNao.Checked)
                             multa = 0;
 
-                        string sql = "INSERT INTO public.atraso VALUES (" + empId + ", to_date('" + dataPrevDev + "', 'dd/MM/yyyy'), " + multa + ", " + txtJustificativa.Text + ");";
+                        if (util.ConfirmaMsg("Deseja realmente devolver esse livro?"))
+                        {
+                            string sql = "INSERT INTO public.atraso VALUES (" + empId + ", to_date('" + dataPrevDev + "', 'dd/MM/yyyy'), " + multa + ", '" + txtJustificativa.Text + "');";
 
-                        con.Run(sql);
+                            con.Run(sql);
 
 
-                        con.Close();
+                            con.Close();
 
-                        con = new Connection("localhost", "5432", "postgres", "postgres", "admin");
+                            con = new Connection("localhost", "5432", "postgres", "postgres", "admin");
 
-                        sql = "UPDATE public.emprestimo SET devolvido = true WHERE id_emprestimo = " + empId;
+                            sql = "UPDATE public.emprestimo SET devolvido = true WHERE id_emprestimo = " + empId;
 
-                        flag = true;
+                            flag = true;
 
-                        con.Run(sql);
+                            con.Run(sql);
+
+                            con.Close();
+
+                            con = new Connection("localhost", "5432", "postgres", "postgres", "admin");
+
+                            sql = "UPDATE public.livro SET disponivel = TRUE WHERE codigo = '" + codigo + "'";
+
+                            con.Run(sql);
+                        }
+                        else
+                        {
+                            option = 1;
+                        }
 
                     }
                     catch(Exception ex)
@@ -304,6 +346,7 @@ namespace Apollo
 
                             con.Run(sql);
                         }
+                        option = 2;
                         throw new Exception(ex.Message);
                     }
                 }
@@ -312,6 +355,24 @@ namespace Apollo
             {
                 util.Msg("Esse usuário não é um administrador.\nUm usuário administrador deve validar a " + operacao, MessageBoxIcon.Error);
             }
+        }
+
+        private void txtUser_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == '\r')
+                altera();
+        }
+
+        private void txtSenha_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == '\r')
+                altera();
+        }
+
+        private void txtJustificativa_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == '\r')
+                altera();
         }
 
         void destaca(TextBox txt)
@@ -362,16 +423,7 @@ namespace Apollo
                 }
             }
             if (!valid) return false;
-
-            if (String.IsNullOrWhiteSpace(txtJustificativa.Text))
-            {
-                if (util.ConfirmaMsg("Você não preencheu nenhuma justificativa.\nDeseja cadastrar assim mesmo?"))
-                    return true;
-                else
-                    return false;
-            }
-            else
-                return true;
+            return true;
         }
     }
 }

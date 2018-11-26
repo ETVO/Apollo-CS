@@ -418,8 +418,12 @@ namespace Apollo
                         else
                             periodo = "Noturno";
 
+
                         if (formOption == 1)
                         {
+
+                            string nome;
+
                             if (util.ConfirmaMsg("Deseja cadastrá-lo como administrador?"))
                             {
                                 if(type  == 'a')
@@ -427,17 +431,19 @@ namespace Apollo
                                     sql = "INSERT INTO public.user (id_user, tipo, nome, ra, login, senha, serie, curso, periodo, telefone, ano, adm) " +
                             "VALUES (" + id.ToString() + ", '" + cmbTipo.Text + "', '" + txtNome.Text + "', '" + txtRA.Text + "', '" + txtUser.Text + "', '" + util.Md5(txtSenha.Text) + "', '" + txtAno.Text + "', '" + txtCurso.Text + "', '" + periodo + "', '" + txtTelefone.Text + "', " + DateTime.Now.Year + ", TRUE);";
 
+                                    nome = txtNome.Text;
                                 }
                                 else
                                 {
                                     sql = "INSERT INTO public.user (id_user, tipo, nome, login, senha, telefone, ano, adm) " +
                             "VALUES (" + id.ToString() + ", '" + cmbTipo.Text + "', '" + txtNomeOutro.Text + "', '" + txtUserOutro.Text + "', '" + util.Md5(txtSenhaOutro.Text) + "', '" + txtTelefoneOutro.Text + "', " + DateTime.Now.Year + ", TRUE);";
 
+                                    nome = txtNomeOutro.Text;
                                 }
 
                                 con.Run(sql);
 
-                                util.Msg("Administrador " + txtNomeOutro.Text.Split(' ')[0] + " cadastrado com sucesso!", MessageBoxIcon.Information);
+                                util.Msg("Administrador " + nome.Split(' ')[0] + " cadastrado com sucesso!", MessageBoxIcon.Information);
                             }
                             else
                             {
@@ -446,17 +452,19 @@ namespace Apollo
                                     sql = "INSERT INTO public.user (id_user, tipo, nome, ra, login, senha, serie, curso, periodo, telefone, ano, adm) " +
                             "VALUES (" + id.ToString() + ", '" + cmbTipo.Text + "', '" + txtNome.Text + "', '" + txtRA.Text + "', '" + txtUser.Text + "', '" + util.Md5(txtSenha.Text) + "', '" + txtAno.Text + "', '" + txtCurso.Text + "', '" + periodo + "', '" + txtTelefone.Text + "', " + DateTime.Now.Year + ", FALSE);";
 
+                                    nome = txtNome.Text;
                                 }
                                 else
                                 {
                                     sql = "INSERT INTO public.user (id_user, tipo, nome, login, senha, telefone, ano, adm) " +
                             "VALUES (" + id.ToString() + ", '" + cmbTipo.Text + "', '" + txtNomeOutro.Text + "', '" + txtUserOutro.Text + "', '" + util.Md5(txtSenhaOutro.Text) + "', '" + txtTelefoneOutro.Text + "', " + DateTime.Now.Year + ", FALSE);";
-
+                                    
+                                    nome = txtNomeOutro.Text;
                                 }
 
                                 con.Run(sql);
 
-                                util.Msg("Usuário " + txtNomeOutro.Text.Split(' ')[0] + " cadastrado com sucesso!", MessageBoxIcon.Information);
+                                util.Msg("Usuário " + nome.Split(' ')[0] + " cadastrado com sucesso!", MessageBoxIcon.Information);
                             }
                         }
                         else

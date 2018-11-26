@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmCadastroLivro));
             this.lblTitle = new System.Windows.Forms.Label();
             this.panelLivro = new System.Windows.Forms.Panel();
@@ -53,6 +54,11 @@
             this.txtTitulo = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.btnAddAutor = new System.Windows.Forms.Button();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.listAutores = new System.Windows.Forms.ListBox();
+            this.btnExcluiAutor = new System.Windows.Forms.Button();
+            this.btnExcluiTodos = new System.Windows.Forms.Button();
             this.panelLivro.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -68,6 +74,10 @@
             // 
             // panelLivro
             // 
+            this.panelLivro.Controls.Add(this.btnExcluiTodos);
+            this.panelLivro.Controls.Add(this.btnExcluiAutor);
+            this.panelLivro.Controls.Add(this.listAutores);
+            this.panelLivro.Controls.Add(this.btnAddAutor);
             this.panelLivro.Controls.Add(this.txtAnoPublicacao);
             this.panelLivro.Controls.Add(this.txtCodigo);
             this.panelLivro.Controls.Add(this.label3);
@@ -91,13 +101,13 @@
             this.panelLivro.Controls.Add(this.label4);
             this.panelLivro.Location = new System.Drawing.Point(13, 73);
             this.panelLivro.Name = "panelLivro";
-            this.panelLivro.Size = new System.Drawing.Size(338, 420);
+            this.panelLivro.Size = new System.Drawing.Size(338, 526);
             this.panelLivro.TabIndex = 18;
             // 
             // txtAnoPublicacao
             // 
-            this.txtAnoPublicacao.Location = new System.Drawing.Point(81, 243);
-            this.txtAnoPublicacao.MaxLength = 100;
+            this.txtAnoPublicacao.Location = new System.Drawing.Point(81, 348);
+            this.txtAnoPublicacao.MaxLength = 9;
             this.txtAnoPublicacao.Name = "txtAnoPublicacao";
             this.txtAnoPublicacao.Size = new System.Drawing.Size(185, 20);
             this.txtAnoPublicacao.TabIndex = 5;
@@ -107,17 +117,17 @@
             // 
             this.txtCodigo.BackColor = System.Drawing.Color.White;
             this.txtCodigo.Enabled = false;
-            this.txtCodigo.Location = new System.Drawing.Point(81, 297);
+            this.txtCodigo.Location = new System.Drawing.Point(81, 402);
             this.txtCodigo.MaxLength = 15;
             this.txtCodigo.Name = "txtCodigo";
             this.txtCodigo.Size = new System.Drawing.Size(185, 20);
-            this.txtCodigo.TabIndex = 6;
+            this.txtCodigo.TabIndex = 10;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(78, 277);
+            this.label3.Location = new System.Drawing.Point(78, 382);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(61, 17);
             this.label3.TabIndex = 73;
@@ -127,10 +137,11 @@
             // 
             this.linkCadastroEditora.AutoSize = true;
             this.linkCadastroEditora.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linkCadastroEditora.Location = new System.Drawing.Point(214, 169);
+            this.linkCadastroEditora.Location = new System.Drawing.Point(214, 274);
             this.linkCadastroEditora.Name = "linkCadastroEditora";
             this.linkCadastroEditora.Size = new System.Drawing.Size(52, 13);
-            this.linkCadastroEditora.TabIndex = 4;
+            this.linkCadastroEditora.TabIndex = 8;
+            this.linkCadastroEditora.TabStop = true;
             this.linkCadastroEditora.Text = "Cadastrar";
             this.linkCadastroEditora.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkCadastroEditora_LinkClicked);
             // 
@@ -138,10 +149,11 @@
             // 
             this.linkCadastroAutor.AutoSize = true;
             this.linkCadastroAutor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.linkCadastroAutor.Location = new System.Drawing.Point(214, 113);
+            this.linkCadastroAutor.Location = new System.Drawing.Point(183, 113);
             this.linkCadastroAutor.Name = "linkCadastroAutor";
             this.linkCadastroAutor.Size = new System.Drawing.Size(52, 13);
             this.linkCadastroAutor.TabIndex = 3;
+            this.linkCadastroAutor.TabStop = true;
             this.linkCadastroAutor.Text = "Cadastrar";
             this.linkCadastroAutor.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkCadastroAutor_LinkClicked);
             // 
@@ -153,6 +165,7 @@
             this.linkCadastroGenero.Name = "linkCadastroGenero";
             this.linkCadastroGenero.Size = new System.Drawing.Size(52, 13);
             this.linkCadastroGenero.TabIndex = 2;
+            this.linkCadastroGenero.TabStop = true;
             this.linkCadastroGenero.Text = "Cadastrar";
             this.linkCadastroGenero.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkCadastroGenero_LinkClicked);
             // 
@@ -179,7 +192,7 @@
             // 
             // txtEditora
             // 
-            this.txtEditora.Location = new System.Drawing.Point(61, 187);
+            this.txtEditora.Location = new System.Drawing.Point(61, 292);
             this.txtEditora.MaxLength = 100;
             this.txtEditora.Name = "txtEditora";
             this.txtEditora.Size = new System.Drawing.Size(14, 20);
@@ -200,10 +213,10 @@
             this.cmbEditora.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbEditora.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmbEditora.FormattingEnabled = true;
-            this.cmbEditora.Location = new System.Drawing.Point(81, 187);
+            this.cmbEditora.Location = new System.Drawing.Point(81, 292);
             this.cmbEditora.Name = "cmbEditora";
             this.cmbEditora.Size = new System.Drawing.Size(185, 21);
-            this.cmbEditora.TabIndex = 4;
+            this.cmbEditora.TabIndex = 8;
             this.cmbEditora.SelectedIndexChanged += new System.EventHandler(this.cmbEditora_SelectedIndexChanged);
             // 
             // cmbAutor
@@ -213,7 +226,7 @@
             this.cmbAutor.FormattingEnabled = true;
             this.cmbAutor.Location = new System.Drawing.Point(81, 131);
             this.cmbAutor.Name = "cmbAutor";
-            this.cmbAutor.Size = new System.Drawing.Size(185, 21);
+            this.cmbAutor.Size = new System.Drawing.Size(154, 21);
             this.cmbAutor.TabIndex = 3;
             this.cmbAutor.SelectedIndexChanged += new System.EventHandler(this.cmbAutor_SelectedIndexChanged);
             // 
@@ -221,7 +234,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(78, 223);
+            this.label2.Location = new System.Drawing.Point(78, 328);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(126, 17);
             this.label2.TabIndex = 64;
@@ -231,7 +244,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(78, 167);
+            this.label1.Location = new System.Drawing.Point(78, 272);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(62, 17);
             this.label1.TabIndex = 62;
@@ -239,30 +252,30 @@
             // 
             // btnFechar
             // 
-            this.btnFechar.Location = new System.Drawing.Point(276, 385);
+            this.btnFechar.Location = new System.Drawing.Point(276, 489);
             this.btnFechar.Name = "btnFechar";
             this.btnFechar.Size = new System.Drawing.Size(55, 26);
-            this.btnFechar.TabIndex = 9;
+            this.btnFechar.TabIndex = 13;
             this.btnFechar.Text = "&Fechar";
             this.btnFechar.UseVisualStyleBackColor = true;
             this.btnFechar.Click += new System.EventHandler(this.btnFechar_Click);
             // 
             // btnVoltar
             // 
-            this.btnVoltar.Location = new System.Drawing.Point(7, 385);
+            this.btnVoltar.Location = new System.Drawing.Point(7, 489);
             this.btnVoltar.Name = "btnVoltar";
             this.btnVoltar.Size = new System.Drawing.Size(55, 26);
-            this.btnVoltar.TabIndex = 8;
+            this.btnVoltar.TabIndex = 12;
             this.btnVoltar.Text = "&Voltar";
             this.btnVoltar.UseVisualStyleBackColor = true;
             this.btnVoltar.Click += new System.EventHandler(this.btnVoltar_Click);
             // 
             // btnCria
             // 
-            this.btnCria.Location = new System.Drawing.Point(83, 337);
+            this.btnCria.Location = new System.Drawing.Point(82, 437);
             this.btnCria.Name = "btnCria";
             this.btnCria.Size = new System.Drawing.Size(173, 42);
-            this.btnCria.TabIndex = 7;
+            this.btnCria.TabIndex = 11;
             this.btnCria.Text = "Cadastrar Livro";
             this.btnCria.UseVisualStyleBackColor = true;
             this.btnCria.Click += new System.EventHandler(this.btnCria_Click);
@@ -273,9 +286,9 @@
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.Location = new System.Drawing.Point(78, 111);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(51, 17);
+            this.label7.Size = new System.Drawing.Size(76, 17);
             this.label7.TabIndex = 60;
-            this.label7.Text = "Autor *";
+            this.label7.Text = "Autor(es) *";
             // 
             // label6
             // 
@@ -317,11 +330,49 @@
             this.label5.Text = "* campos que devem ser preenchidos";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // btnAddAutor
+            // 
+            this.btnAddAutor.Location = new System.Drawing.Point(241, 131);
+            this.btnAddAutor.Name = "btnAddAutor";
+            this.btnAddAutor.Size = new System.Drawing.Size(25, 21);
+            this.btnAddAutor.TabIndex = 4;
+            this.btnAddAutor.Text = "+";
+            this.btnAddAutor.UseVisualStyleBackColor = true;
+            this.btnAddAutor.Click += new System.EventHandler(this.btnAddAutor_Click);
+            // 
+            // listAutores
+            // 
+            this.listAutores.FormattingEnabled = true;
+            this.listAutores.Location = new System.Drawing.Point(81, 158);
+            this.listAutores.Name = "listAutores";
+            this.listAutores.Size = new System.Drawing.Size(185, 82);
+            this.listAutores.TabIndex = 5;
+            // 
+            // btnExcluiAutor
+            // 
+            this.btnExcluiAutor.Location = new System.Drawing.Point(81, 242);
+            this.btnExcluiAutor.Name = "btnExcluiAutor";
+            this.btnExcluiAutor.Size = new System.Drawing.Size(87, 21);
+            this.btnExcluiAutor.TabIndex = 6;
+            this.btnExcluiAutor.Text = "Excluir Autor";
+            this.btnExcluiAutor.UseVisualStyleBackColor = true;
+            this.btnExcluiAutor.Click += new System.EventHandler(this.btnExcluiAutor_Click);
+            // 
+            // btnExcluiTodos
+            // 
+            this.btnExcluiTodos.Location = new System.Drawing.Point(174, 242);
+            this.btnExcluiTodos.Name = "btnExcluiTodos";
+            this.btnExcluiTodos.Size = new System.Drawing.Size(92, 21);
+            this.btnExcluiTodos.TabIndex = 7;
+            this.btnExcluiTodos.Text = "Excluir Todos";
+            this.btnExcluiTodos.UseVisualStyleBackColor = true;
+            this.btnExcluiTodos.Click += new System.EventHandler(this.btnExcluiTodos_Click);
+            // 
             // frmCadastroLivro
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(364, 494);
+            this.ClientSize = new System.Drawing.Size(364, 599);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.panelLivro);
             this.Controls.Add(this.lblTitle);
@@ -364,5 +415,10 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtAnoPublicacao;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button btnAddAutor;
+        private System.Windows.Forms.ToolTip toolTip;
+        private System.Windows.Forms.Button btnExcluiTodos;
+        private System.Windows.Forms.Button btnExcluiAutor;
+        private System.Windows.Forms.ListBox listAutores;
     }
 }

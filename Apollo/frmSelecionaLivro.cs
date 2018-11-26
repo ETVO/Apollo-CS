@@ -201,7 +201,7 @@ namespace Apollo
 
                     //string txt = "Clique duas vezes para selecionar o livro que " + nome + " emprestará";
 
-                    string txt = nome;
+                    string txt = "para " + nome;
 
                     lblDesc.Text = txt;
                 }
@@ -232,7 +232,7 @@ namespace Apollo
         private void btnSelecionar_Click(object sender, EventArgs e)
         {
             if(dgvLivro.SelectedRows.Count == 1)
-                seleciona(dgvLivro.SelectedRows[0].Index);
+                seleciona(dgvLivro.SelectedRows[0].Index - 1);
         }
 
         void seleciona(int index)
@@ -268,7 +268,7 @@ namespace Apollo
         {
             if (e.KeyChar == '\r')
             {
-                seleciona(dgvLivro.SelectedRows[0].Index);
+                seleciona(dgvLivro.SelectedRows[0].Index - 1);
             }
         }
 
@@ -279,7 +279,7 @@ namespace Apollo
             {
                 con = new Connection("localhost", "5432", "postgres", "postgres", "admin");
 
-                string sql = "SELECT id_livro, codigo, titulo, genero, (SELECT nome FROM public.autor WHERE public.autor.id_autor = l.id_autor), (SELECT nome FROM public.editora WHERE public.editora.id_editora = l.id_editora), ano_lancamento FROM public.livro AS l INNER JOIN public.autor AS a ON a.id_autor = l.id_autor INNER JOIN public.editora AS e ON e.id_editora = l.id_editora WHERE disponivel = TRUE";
+                string sql = "SELECT id_livro, titulo, genero, (SELECT nome FROM public.autor WHERE public.autor.id_autor = l.id_autor), (SELECT nome FROM public.editora WHERE public.editora.id_editora = l.id_editora), ano_lancamento, codigo FROM public.livro AS l INNER JOIN public.autor AS a ON a.id_autor = l.id_autor INNER JOIN public.editora AS e ON e.id_editora = l.id_editora WHERE disponivel = TRUE";
 
 
                 if (filterOn)
@@ -292,20 +292,24 @@ namespace Apollo
                     }
                 }
 
+                sql += " ORDER BY titulo ASC";
+
                 DataTable dt = con.SelectDataTable(sql);
 
                 if (dt.Rows.Count > 0)
                 {
                     dgvLivro.DataSource = dt;
 
+                    setToAutoFill(dgvLivro);
+
                     int i = 0;
                     dgvLivro.Columns[i++].HeaderText = "Id";
-                    dgvLivro.Columns[i++].HeaderText = "Código";
                     dgvLivro.Columns[i++].HeaderText = "Título";
                     dgvLivro.Columns[i++].HeaderText = "Gênero";
                     dgvLivro.Columns[i++].HeaderText = "Autor";
                     dgvLivro.Columns[i++].HeaderText = "Editora";
                     dgvLivro.Columns[i++].HeaderText = "Ano Lançamento";
+                    dgvLivro.Columns[i++].HeaderText = "Código";
 
                     dgvLivro.Columns[0].Visible = false;
                 }
@@ -318,6 +322,16 @@ namespace Apollo
             }
 
             dgvLivro.ClearSelection();
+        }
+
+        void setToAutoFill(DataGridView dgv)
+        {
+            DataGridViewAutoSizeColumnMode mode = DataGridViewAutoSizeColumnMode.Fill;
+
+            for (int j = 0; j < dgv.Columns.Count; j++)
+            {
+                dgv.Columns[j].AutoSizeMode = mode;
+            }
         }
     }
 }

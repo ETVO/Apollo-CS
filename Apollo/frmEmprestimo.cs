@@ -79,6 +79,7 @@ namespace Apollo
                 if (util.ConfirmaMsg("Deseja realmente renovar esse livro?\n\nA nova data de devolução será " + novaData + "."))
                     renova(novaDate);
             }
+            displayData();
         }
         
         void renova(DateTime date)
@@ -105,12 +106,25 @@ namespace Apollo
             {
                 frmAtraso atraso = new frmAtraso('d', empId);
                 atraso.ShowDialog();
+
+                if (atraso.DialogResult == DialogResult.OK)
+                {
+                    backToDash = true;
+                    voltar();
+                }
             }
             else
             {
                 frmDevolve devolve = new frmDevolve(empId);
                 devolve.ShowDialog();
+
+                if (devolve.DialogResult == DialogResult.OK)
+                {
+                    backToDash = true;
+                    voltar();
+                }
             }
+            displayData();
         }
 
         Connection con;
@@ -184,9 +198,10 @@ namespace Apollo
                 {
 
                     lblDias.Text = dias + " dias";
-                    lblMulta.Text = (dias * multaDia).ToString("C2", new CultureInfo("pt-BR"));
+                    multa = dias * multaDia;
+                    lblMulta.Text = multa.ToString("C2", new CultureInfo("pt-BR"));
 
-                    desc = "Este empréstimo está atrasado";
+                    desc = dias + " dias atrasado :(";
                 }
 
                 lblDesc.Text = desc;
@@ -208,6 +223,8 @@ namespace Apollo
             }
         }
 
+        bool backToDash = false;
+
         void voltar()
         {
             switch (formOption)
@@ -220,10 +237,20 @@ namespace Apollo
                     break;
 
                 case 1://admin dashboard
-                    frmConsultaEmprestimo consultaEmprestimo = new frmConsultaEmprestimo(userId, formOption);
-                    this.Hide();
-                    consultaEmprestimo.ShowDialog();
-                    this.Close();
+                    if (!backToDash)
+                    {
+                        frmConsultaEmprestimo consultaEmprestimo = new frmConsultaEmprestimo(userId, formOption);
+                        this.Hide();
+                        consultaEmprestimo.ShowDialog();
+                        this.Close();
+                    }
+                    else
+                    {
+                        frmDashboardAdm adm = new frmDashboardAdm(userId);
+                        this.Hide();
+                        adm.ShowDialog();
+                        this.Close();
+                    }
                     break;
 
                 case 2://user dashboard

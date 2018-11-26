@@ -63,7 +63,7 @@ namespace Apollo
             {
                 con = new Connection("localhost", "5432", "postgres", "postgres", "admin");
 
-                string sql = "SELECT id_emprestimo, (SELECT titulo FROM public.livro WHERE public.livro.id_livro = e.id_livro) AS livro, (SELECT nome FROM public.user WHERE public.user.id_user = e.id_user) AS user, to_char(data_emp, 'dd/MM/yyyy'), to_char(data_prev_dev, 'dd/MM/yyyy') FROM public.emprestimo AS e INNER JOIN public.user AS u ON u.id_user = e.id_user INNER JOIN public.livro AS l ON l.id_livro = e.id_livro WHERE e.devolvido = FALSE";
+                string sql = "SELECT id_emprestimo, (SELECT codigo FROM public.livro WHERE public.livro.id_livro = e.id_livro) AS codigo, (SELECT titulo FROM public.livro WHERE public.livro.id_livro = e.id_livro) AS livro, (SELECT nome FROM public.user WHERE public.user.id_user = e.id_user) AS user, to_char(data_emp, 'dd/MM/yyyy'), to_char(data_prev_dev, 'dd/MM/yyyy') FROM public.emprestimo AS e INNER JOIN public.user AS u ON u.id_user = e.id_user INNER JOIN public.livro AS l ON l.id_livro = e.id_livro WHERE e.devolvido = FALSE";
 
                 
                 NpgsqlDataReader dr = con.Select(sql);
@@ -75,7 +75,7 @@ namespace Apollo
 
                     while (dr.Read())
                     {
-                        string dataPrevDev = dr.GetString(4);
+                        string dataPrevDev = dr.GetString(5);
                         DateTime datePrevDev = DateTime.ParseExact(dataPrevDev, "dd/MM/yyyy", null);
 
                         long id_emp = dr.GetInt64(0);
@@ -102,9 +102,11 @@ namespace Apollo
                     if (txtPesquisa.Text.Length > 0)
                     {
                         pesq = txtPesquisa.Text.ToLower();
-                        sql += " AND (u.nome LIKE '%" + pesq + "%' OR l.titulo LIKE '%" + pesq + "%')";
+                        sql += " AND (lower(u.nome) LIKE '%" + pesq + "%' OR lower(l.titulo) LIKE '%" + pesq + "%' OR lower(l.codigo) LIKE '%" + pesq + "%')";
                     }
                 }
+
+                sql += " ORDER BY e.data_prev_dev ASC";
 
                 con.Close();
 
@@ -112,25 +114,37 @@ namespace Apollo
 
                 DataTable dt = con.SelectDataTable(sql);
 
+
+                dgvEmprestimo.Columns.Clear();
+                dgvEmprestimo.Rows.Clear();
+
                 if (dt.Rows.Count > 0)
                 {
 
                     dgvEmprestimo.DataSource = dt;
 
                     int i = 0;
+
+                    setToAutoFill(dgvEmprestimo);
+
                     dgvEmprestimo.Columns[i++].HeaderText = "Id";
+                    dgvEmprestimo.Columns[i++].HeaderText = "Código Livro";
                     dgvEmprestimo.Columns[i++].HeaderText = "Livro";
                     dgvEmprestimo.Columns[i++].HeaderText = "Usuário";
                     dgvEmprestimo.Columns[i++].HeaderText = "Data Retirada";
                     dgvEmprestimo.Columns[i++].HeaderText = "Data Devolução";
 
-                    dgvEmprestimo.Columns.Add("Atrasado", "Atrasado");
+                    if(dgvEmprestimo.Rows.Count > 0)
+                        dgvEmprestimo.Columns.Add("Atrasado", "Atrasado");
 
                     for(int j = 0; j < dgvEmprestimo.Rows.Count; j++)
                     {
                         string atrasado = "Não";
                         if (idAtrasos.Contains(Convert.ToInt64(dgvEmprestimo.Rows[j].Cells[0].Value)))
+                        {
                             atrasado = "Sim";
+                            dgvEmprestimo.Rows[j].DefaultCellStyle.BackColor = Color.FromArgb(255, 192, 192);
+                        }
                         dgvEmprestimo.Rows[j].Cells[i].Value = atrasado;
                     }
 
@@ -145,6 +159,16 @@ namespace Apollo
             }
 
             dgvEmprestimo.ClearSelection();
+        }
+
+        void setToAutoFill(DataGridView dgv)
+        {
+            DataGridViewAutoSizeColumnMode mode = DataGridViewAutoSizeColumnMode.Fill;
+
+            for (int j = 0; j < dgv.Columns.Count; j++)
+            {
+                dgv.Columns[j].AutoSizeMode = mode;
+            }
         }
 
         void voltar()
@@ -196,7 +220,7 @@ namespace Apollo
         private void btnSelecionar_Click(object sender, EventArgs e)
         {
             if (dgvEmprestimo.SelectedRows.Count > 0)
-                seleciona(dgvEmprestimo.SelectedRows[0].Index);
+                seleciona(dgvEmprestimo.SelectedRows[0].Index - 1);
         }
 
         private void dgvEmprestimo_KeyPress(object sender, KeyPressEventArgs e)
@@ -208,6 +232,50 @@ namespace Apollo
         private void btnVoltar_Click(object sender, EventArgs e)
         {
             voltar();
+        }
+
+        private void btnFechar_Click(object sender, EventArgs e)
+        {
+            if (util.ConfirmaMsg("Deseja realmente fechar?"))
+                this.Close();
+        }
+
+        private void txtPesquisa_TextChanged(object sender, EventArgs e)
+        {
+            grid(true);
+        }
+
+        private void btnRecarregar_Click(object sender, EventArgs e)
+        {
+            grid(true);
+        }
+
+        private void dgvEmprestimo_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            int i = 0;
+
+            dgvEmprestimo.Columns[i++].HeaderText = "Id";
+            dgvEmprestimo.Columns[i++].HeaderText = "Código Livro";
+            dgvEmprestimo.Columns[i++].HeaderText = "Livro";
+            dgvEmprestimo.Columns[i++].HeaderText = "Usuário";
+            dgvEmprestimo.Columns[i++].HeaderText = "Data Retirada";
+            dgvEmprestimo.Columns[i++].HeaderText = "Data Devolução";
+
+            if (dgvEmprestimo.Rows.Count > 0)
+                dgvEmprestimo.Columns.Add("Atrasado", "Atrasado");
+
+            for (int j = 0; j < dgvEmprestimo.Rows.Count; j++)
+            {
+                string atrasado = "Não";
+                if (idAtrasos.Contains(Convert.ToInt64(dgvEmprestimo.Rows[j].Cells[0].Value)))
+                {
+                    atrasado = "Sim";
+                    dgvEmprestimo.Rows[j].DefaultCellStyle.BackColor = Color.FromArgb(255, 192, 192);
+                }
+                dgvEmprestimo.Rows[j].Cells[i].Value = atrasado;
+            }
+
+            dgvEmprestimo.Columns[0].Visible = false;
         }
 
         void seleciona(int index)
