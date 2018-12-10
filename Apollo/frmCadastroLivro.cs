@@ -213,11 +213,21 @@ namespace Apollo
         void limpaCampo(TextBox txt)
         {
             if (txt == txtAutor)
+            {
+                limpaTodosAutores();
+                cmbReload('a');
                 cmbAutor.SelectedIndex = -1;
+            }
             else if (txt == txtEditora)
+            {
+                cmbReload('e');
                 cmbEditora.SelectedIndex = -1;
+            }
             else if (txt == txtGenero)
+            {
+                cmbReload('g');
                 cmbGenero.SelectedIndex = -1;
+            }
             else
                 txt.Text = "";
         }
@@ -253,9 +263,7 @@ namespace Apollo
 
         private void btnCria_Click(object sender, EventArgs e)
         {
-            util.Msg("Ainda não consertada!", MessageBoxIcon.Error);
-
-            //cria();
+            cria();
         }
 
         void destaca(TextBox txt)
@@ -337,9 +345,9 @@ namespace Apollo
         List<long> idEditoras = new List<long>();
         List<long> idGeneros = new List<long>();
 
-        long id_livro, id_autor, id_editora, id_genero;
+        long id_livro, id_editora, id_genero;
 
-        string genero;
+        string genero, id_autor = "";
 
         void cria()
         {
@@ -366,7 +374,6 @@ namespace Apollo
 
                     con.Close();
                     
-                    id_autor = idAutores[cmbAutor.SelectedIndex];
                     id_editora = idEditoras[cmbEditora.SelectedIndex];
                     id_genero = idGeneros[cmbGenero.SelectedIndex];
 
@@ -397,11 +404,38 @@ namespace Apollo
                     if (ano_pub.Length == 0)
                         ano_pub = "null";
 
-                    sql1 = "INSERT INTO public.livro (id_livro, codigo, titulo, genero, id_autor, id_editora, ano_lancamento) VALUES (" + id_livro + ", '" + txtCodigo.Text + "', '" + txtTitulo.Text + "', '" + genero + "', " + id_autor + ", " + id_editora + ", " + ano_pub + ")";
+                    for(int i = 0; i < idAutores.Count; i++)
+                    {
+                        if(i == (idAutores.Count - 1))
+                        {
+                            id_autor += idAutores[i];
+                        }
+                        else
+                            id_autor += idAutores[i] + ", ";
+                    }
+
+                    string titulo = txtTitulo.Text;
+
+                    char artigo = titulo.ToUpper()[0];
+
+                    if(((artigo == 'A' || artigo == 'O') && titulo[1] == ' '))
+                    {
+                        titulo = titulo.Remove(0, 2);
+
+                        titulo += ", " + artigo;
+                    }
+                    else if(((artigo == 'A' || artigo == 'O') && titulo[1] == 's' && titulo[2] == ' '))
+                    {
+                        titulo = titulo.Remove(0, 3);
+
+                        titulo += ", " + artigo + "s";
+                    }
+
+                    sql1 = "INSERT INTO public.livro (id_livro, codigo, titulo, genero, id_autor, id_editora, ano_lancamento) VALUES (" + id_livro + ", '" + txtCodigo.Text + "', '" + titulo + "', '" + genero + "', '{" + id_autor + "}', " + id_editora + ", " + ano_pub + ")";
 
                     con.Run(sql1);
 
-                    util.Msg("Livro \"" + txtTitulo.Text + "\" cadastrado com sucesso!", MessageBoxIcon.Information);
+                    util.Msg("Livro \"" + titulo + "\" cadastrado com sucesso!", MessageBoxIcon.Information);
 
                     limpaCampo();
 
@@ -470,12 +504,6 @@ namespace Apollo
                 idSelecionados.Add(idAutores[cmbAutor.SelectedIndex]);
                 idAutores.Remove(idAutores[cmbAutor.SelectedIndex]);
                 cmbAutor.Items.Remove(cmbAutor.Items[cmbAutor.SelectedIndex]);
-
-                lblTitle.Text = "";
-                for (int i = 0; i < idSelecionados.Count; i++)
-                {
-                    lblTitle.Text += idSelecionados[i].ToString();
-                }
             }
         }
 
@@ -495,7 +523,12 @@ namespace Apollo
 
         private void btnExcluiTodos_Click(object sender, EventArgs e)
         {
-            if(listAutores.Items.Count > 1)
+            limpaTodosAutores();
+        }
+
+        void limpaTodosAutores()
+        {
+            if (listAutores.Items.Count > 1)
             {
                 if (util.ConfirmaMsg("Deseja realmente excluir todos os autores?"))
                 {

@@ -279,7 +279,7 @@ namespace Apollo
             {
                 con = new Connection("localhost", "5432", "postgres", "postgres", "admin");
 
-                string sql = "SELECT id_livro, titulo, genero, (SELECT nome FROM public.autor WHERE public.autor.id_autor = l.id_autor), (SELECT nome FROM public.editora WHERE public.editora.id_editora = l.id_editora), ano_lancamento, codigo FROM public.livro AS l INNER JOIN public.autor AS a ON a.id_autor = l.id_autor INNER JOIN public.editora AS e ON e.id_editora = l.id_editora WHERE disponivel = TRUE";
+                string sql = "SELECT id_livro, titulo, genero, id_autor, (SELECT nome FROM public.editora WHERE public.editora.id_editora = l.id_editora), ano_lancamento, codigo FROM public.livro AS l INNER JOIN public.editora AS e ON e.id_editora = l.id_editora WHERE disponivel = TRUE";
 
 
                 if (filterOn)
@@ -296,6 +296,8 @@ namespace Apollo
 
                 DataTable dt = con.SelectDataTable(sql);
 
+                con.Close();
+
                 if (dt.Rows.Count > 0)
                 {
                     dgvLivro.DataSource = dt;
@@ -306,10 +308,34 @@ namespace Apollo
                     dgvLivro.Columns[i++].HeaderText = "Id";
                     dgvLivro.Columns[i++].HeaderText = "Título";
                     dgvLivro.Columns[i++].HeaderText = "Gênero";
-                    dgvLivro.Columns[i++].HeaderText = "Autor";
+                    dgvLivro.Columns[i++].HeaderText = "Autor(es)";
                     dgvLivro.Columns[i++].HeaderText = "Editora";
                     dgvLivro.Columns[i++].HeaderText = "Ano Lançamento";
                     dgvLivro.Columns[i++].HeaderText = "Código";
+
+                    for(int j = 0; j < dgvLivro.Rows.Count; j++)
+                    {
+                        string autor, autores = "";
+                        DataGridViewRow row = dgvLivro.Rows[j];
+
+                        long[] ids = (long[])row.Cells[3].Value;
+
+                        for(int a = 0; a < ids.Length; a++)
+                        {
+                            autor = "SELECT nome FROM public.autor WHERE id_autor = " + ids[a];
+
+                            NpgsqlDataReader drAutor = con.Select(autor);
+
+                            if(a == (ids.Length -1))
+                                autores += drAutor.GetString(0);
+                            else
+                                autores += drAutor.GetString(0) + ", ";
+
+                            con.Close();
+                        }
+
+                        row.Cells[3].Value = autores;
+                    }
 
                     dgvLivro.Columns[0].Visible = false;
                 }

@@ -9,15 +9,25 @@ using System.Threading.Tasks;
 /// <summary>
 /// Classe com funções NpgSQL
 /// </summary>
-public class Connection
+public static class Connection
 {
 
     /// <summary>
     /// Atributo interno da conexão com o banco
     /// </summary>
-    private NpgsqlConnection con;
+    private static NpgsqlConnection con;
 
-    /// <summary>
+    private static string host = "localhost";
+
+    private static string port = "5432";
+
+    private static string db = "postgres";
+
+    private static string user = "postgres";
+
+    private static string password = "admin";
+
+    /*/// <summary>
     /// Construtor da classe
     /// </summary>
     /// <param name="host">Nome do host</param>
@@ -25,9 +35,14 @@ public class Connection
     /// <param name="db">Banco de dados</param>
     /// <param name="user">Nome de usuário</param>
     /// <param name="password">Senha</param>
-    public Connection(string host, string port, string db, string user, string password)
+    /*public static Connection(string host, string port, string db, string user, string password)
     {
         Open(host, port, db, user, password);
+    }*/
+
+    static Connection()
+    {
+        Open();
     }
 
     /// <summary>
@@ -38,7 +53,7 @@ public class Connection
     /// <param name="db">Banco de dados</param>
     /// <param name="user">Nome de usuário</param>
     /// <param name="password">Senha</param>
-    public void Open(string host, string port, string db, string user, string password)
+    public static void Open()
     {
         try
         {
@@ -58,17 +73,23 @@ public class Connection
     /// <summary>
     /// Encerra a conexão
     /// </summary>
-    public void Close()
+    public static void Close()
     {
         con.Close();
         con.Dispose();
+    }
+
+    public static void Recycle()
+    {
+        Close();
+        Open();
     }
 
     /// <summary>
     /// Executa um comando SQL sem retorno
     /// </summary>
     /// <param name="sql">O comando SQL</param>
-    public void Run(string sql)
+    public static void Run(string sql)
     {
         try
         {
@@ -86,7 +107,7 @@ public class Connection
     /// </summary>
     /// <param name="sql">O comando SQL</param>
     /// <param name="parameters">Os parâmetros do comando</param>
-    public void Run(string sql, List<object> parameters)
+    public static void Run(string sql, List<object> parameters)
     {
         try
         {
@@ -111,7 +132,7 @@ public class Connection
     /// <param name="parameters">Os parâmetros do comando</param>
     /// <param name="returning"></param>
     /// <returns></returns>
-    public int Run(string sql, List<object> parameters, string returning)
+    public static int Run(string sql, List<object> parameters, string returning)
     {
         try
         {
@@ -138,7 +159,7 @@ public class Connection
     /// </summary>
     /// <param name="sql">O comando SQL</param>
     /// <returns>Retorna os dados selecionados</returns>
-    public NpgsqlDataReader Select(string sql)
+    public static NpgsqlDataReader Select(string sql)
     {
         try
         {
@@ -157,7 +178,7 @@ public class Connection
     /// <param name="sql">O comando SQL</param>
     /// <param name="parameters">Os parâmetros do comando</param>
     /// <returns>Retorna os dados selecionados</returns>
-    public NpgsqlDataReader Select(string sql, List<object> parameters)
+    public static NpgsqlDataReader Select(string sql, List<object> parameters)
     {
         try
         {
@@ -180,7 +201,7 @@ public class Connection
     /// </summary>
     /// <param name="sql">O comando SQL</param>
     /// <returns>Retorna um DataTable com os dados selecionados</returns>
-    public DataTable SelectDataTable(string sql)
+    public static DataTable SelectDataTable(string sql)
     {
         try
         {
@@ -201,7 +222,7 @@ public class Connection
     /// </summary>
     /// <param name="sql">O comando SQL</param>
     /// <returns>Retorna um DataSet com os dados</returns>
-    public DataSet SelectDataSet(string sql)
+    public static DataSet SelectDataSet(string sql)
     {
         try
         {
@@ -225,7 +246,7 @@ public class Connection
     /// <param name="where">Condição (opcional)</param>
     /// <param name="orderBy">Ordenação (opcional)</param>
     /// <returns>Retorna um DataSet com os dados</returns>
-    public DataSet SelectDataSet(string table, string fields, string where = "", string orderBy = "")
+    public static DataSet SelectDataSet(string table, string fields, string where = "", string orderBy = "")
     {
         try
         {
@@ -254,7 +275,7 @@ public class Connection
     /// Obtém os dados da conexão em String
     /// </summary>
     /// <returns>Retorna os dados da conexão</returns>
-    public string ToString()
+    public static string ToString()
     {
         return con.ConnectionString;
     }
